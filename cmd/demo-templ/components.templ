@@ -143,11 +143,12 @@ templ StyleBuilderExample() {
 		<div class="grid grid-cols-2 gap-4">
 			<div>
 				<h4>Code:</h4>
-				<pre style={ fmt.Sprintf("background: %s; padding: %s; border-radius: %s; overflow-x: auto", 
+				<pre style={ fmt.Sprintf("background: %s; color: %s; padding: %s; border-radius: %s; overflow-x: auto; font-family: %s", 
 					op.Color.Gray(1), 
+					op.Color.Text(),
 					op.Size(3), 
-					op.Radius(2)) }>
-style := op.NewStyle().
+					op.Radius(2),
+					op.Font.Mono()) }><code>style := op.NewStyle().
     Background(op.Gradient(15)).
     Color(op.Color.Blue(9)).
     Padding(op.Size(4)).
@@ -156,7 +157,7 @@ style := op.NewStyle().
     BoxShadow(op.Shadow(4)).
     FontSize(op.Font.Size(3)).
     Animation(op.Animation.FadeIn()).
-    String()</pre>
+    String()</code></pre>
 			</div>
 			<div>
 				<h4>Result:</h4>
@@ -181,6 +182,19 @@ func exampleStyle() string {
 		String()
 }
 
+func codeBlockStyle() string {
+	return op.NewStyle().
+		Background(op.Color.Gray(1)).
+		Color(op.Color.Text()).
+		Padding(op.Size(3)).
+		BorderRadius(op.Radius(2)).
+		Custom("overflow-x", "auto").
+		Custom("font-family", op.Font.Mono()).
+		Custom("font-size", op.Font.Size(0)).
+		Custom("line-height", op.Font.LineHeight(3)).
+		String()
+}
+
 // HomePage shows all components
 templ HomePage() {
 	@Layout("Op Package Demo") {
@@ -191,12 +205,26 @@ templ HomePage() {
 
 		<section class="mb-4">
 			<h3>Dynamic Buttons</h3>
-			<div class="flex gap-2 flex-wrap">
+			<div class="flex gap-2 flex-wrap mb-3">
 				@DynamicButton("Small Primary", "primary", 2)
 				@DynamicButton("Medium Secondary", "secondary", 3)
 				@DynamicButton("Large Success", "success", 4)
 				@DynamicButton("Extra Large Danger", "danger", 5)
 			</div>
+			<details>
+				<summary>View Code</summary>
+				<pre style={ codeBlockStyle() }><code>// Button with dynamic variant and size
+@DynamicButton("Button Text", "primary", 3)
+
+// Implementation
+style := op.NewStyle().
+    Padding(op.Size(size)).
+    BorderRadius(op.Radius(2)).
+    FontWeight(op.Font.Weight(6)).
+    Background(op.Color.Primary()).
+    Color("white").
+    String()</code></pre>
+			</details>
 		</section>
 
 		@StyleBuilderExample()
@@ -239,6 +267,21 @@ templ ColorsPage() {
 			<h2>Color Scales</h2>
 			<p>All Open Props colors with op.Color API</p>
 		</header>
+
+		<div class="card mb-4">
+			<h3>Usage Example</h3>
+			<pre style={ codeBlockStyle() }><code>// Access any color with scale 0-12
+backgroundColor := op.Color.Blue(1)    // Light blue
+textColor := op.Color.Blue(11)        // Dark blue
+borderColor := op.Color.Gray(4)       // Medium gray
+
+// Use in styles
+style := op.NewStyle().
+    Background(op.Color.Surface()).
+    Color(op.Color.Text()).
+    Custom("border", fmt.Sprintf("1px solid %s", op.Color.Border())).
+    String()</code></pre>
+		</div>
 
 		@ColorScale("Gray", op.Color.Gray)
 		@ColorScale("Blue", op.Color.Blue)
@@ -289,6 +332,27 @@ templ SpacingPage() {
 			<p>Visual guide to op.Size() values</p>
 		</header>
 
+		<div class="card mb-4">
+			<h3>Usage Example</h3>
+			<pre style={ codeBlockStyle() }><code>// Size scale from 000 to 15
+padding := op.Size(4)          // var(--size-4)
+margin := op.Size(-1)          // var(--size-00) 
+gap := op.Size(-2)             // var(--size-000)
+
+// Fluid sizes (responsive)
+responsivePadding := op.SizeFluid(3)
+
+// Content sizes
+maxWidth := op.SizeContent(3)
+
+// In practice
+style := op.NewStyle().
+    Padding(op.Size(4)).
+    Margin(op.Size(2)).
+    Custom("gap", op.Size(3)).
+    String()</code></pre>
+		</div>
+
 		@SpacingVisualizer()
 
 		<div class="card mt-4">
@@ -315,6 +379,26 @@ templ AnimationsPage() {
 			<h2>Animations</h2>
 			<p>Open Props animations via op.Animation</p>
 		</header>
+
+		<div class="card mb-4">
+			<h3>Usage Example</h3>
+			<pre style={ codeBlockStyle() }><code>// Apply animations
+fadeIn := op.Animation.FadeIn()
+bounce := op.Animation.Bounce()
+slideUp := op.Animation.SlideInUp()
+
+// With easing functions
+easeOut := op.Ease.Out(3)
+elasticEase := op.Ease.Elastic(2)
+
+// Complete example
+style := op.NewStyle().
+    Animation(op.Animation.FadeIn()).
+    TransitionProperty("all").
+    TransitionDuration("300ms").
+    TransitionTimingFunction(op.Ease.Out(3)).
+    String()</code></pre>
+		</div>
 
 		<div class="grid grid-cols-3 gap-4">
 			@AnimatedCard("Fade In", "Smooth entrance animation", op.Animation.FadeIn())
