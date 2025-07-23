@@ -143,7 +143,7 @@ templ StyleBuilderExample() {
 		<div class="grid grid-cols-2 gap-4">
 			<div>
 				<h4>Code:</h4>
-				<pre style={ codeBlockStyle() }><code>style := op.NewStyle().
+				<pre style={ codeBlockStyle() }>style := op.NewStyle().
     Background(op.Gradient(15)).
     Color(op.Color.Blue(9)).
     Padding(op.Size(4)).
@@ -152,7 +152,7 @@ templ StyleBuilderExample() {
     BoxShadow(op.Shadow(4)).
     FontSize(op.Font.Size(3)).
     Animation(op.Animation.FadeIn()).
-    String()</code></pre>
+    String()</pre>
 			</div>
 			<div>
 				<h4>Result:</h4>
@@ -187,6 +187,7 @@ func codeBlockStyle() string {
 		Custom("font-family", op.Font.Mono()).
 		Custom("font-size", op.Font.Size(0)).
 		Custom("line-height", op.Font.LineHeight(3)).
+		Custom("white-space", "pre").
 		String()
 }
 
@@ -208,7 +209,7 @@ templ HomePage() {
 			</div>
 			<details>
 				<summary>View Code</summary>
-				<pre style={ codeBlockStyle() }><code>// Button with dynamic variant and size
+				<pre style={ codeBlockStyle() }>// Button with dynamic variant and size
 @DynamicButton("Button Text", "primary", 3)
 
 // Implementation
@@ -218,7 +219,7 @@ style := op.NewStyle().
     FontWeight(op.Font.Weight(6)).
     Background(op.Color.Primary()).
     Color("white").
-    String()</code></pre>
+    String()</pre>
 			</details>
 		</section>
 
@@ -265,7 +266,7 @@ templ ColorsPage() {
 
 		<div class="card mb-4">
 			<h3>Usage Example</h3>
-			<pre style={ codeBlockStyle() }><code>// Access any color with scale 0-12
+			<pre style={ codeBlockStyle() }>// Access any color with scale 0-12
 backgroundColor := op.Color.Blue(1)    // Light blue
 textColor := op.Color.Blue(11)        // Dark blue
 borderColor := op.Color.Gray(4)       // Medium gray
@@ -275,7 +276,7 @@ style := op.NewStyle().
     Background(op.Color.Surface()).
     Color(op.Color.Text()).
     Custom("border", fmt.Sprintf("1px solid %s", op.Color.Border())).
-    String()</code></pre>
+    String()</pre>
 		</div>
 
 		@ColorScale("Gray", op.Color.Gray)
@@ -329,7 +330,7 @@ templ SpacingPage() {
 
 		<div class="card mb-4">
 			<h3>Usage Example</h3>
-			<pre style={ codeBlockStyle() }><code>// Size scale from 000 to 15
+			<pre style={ codeBlockStyle() }>// Size scale from 000 to 15
 padding := op.Size(4)          // var(--size-4)
 margin := op.Size(-1)          // var(--size-00) 
 gap := op.Size(-2)             // var(--size-000)
@@ -345,7 +346,7 @@ style := op.NewStyle().
     Padding(op.Size(4)).
     Margin(op.Size(2)).
     Custom("gap", op.Size(3)).
-    String()</code></pre>
+    String()</pre>
 		</div>
 
 		@SpacingVisualizer()
@@ -377,7 +378,7 @@ templ AnimationsPage() {
 
 		<div class="card mb-4">
 			<h3>Usage Example</h3>
-			<pre style={ codeBlockStyle() }><code>// Apply animations
+			<pre style={ codeBlockStyle() }>// Apply animations
 fadeIn := op.Animation.FadeIn()
 bounce := op.Animation.Bounce()
 slideUp := op.Animation.SlideInUp()
@@ -392,7 +393,7 @@ style := op.NewStyle().
     TransitionProperty("all").
     TransitionDuration("300ms").
     TransitionTimingFunction(op.Ease.Out(3)).
-    String()</code></pre>
+    String()</pre>
 		</div>
 
 		<div class="grid grid-cols-3 gap-4">
