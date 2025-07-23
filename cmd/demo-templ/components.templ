@@ -143,12 +143,7 @@ templ StyleBuilderExample() {
 		<div class="grid grid-cols-2 gap-4">
 			<div>
 				<h4>Code:</h4>
-				<pre style={ fmt.Sprintf("background: %s; color: %s; padding: %s; border-radius: %s; overflow-x: auto; font-family: %s", 
-					op.Color.Gray(1), 
-					op.Color.Text(),
-					op.Size(3), 
-					op.Radius(2),
-					op.Font.Mono()) }><code>style := op.NewStyle().
+				<pre style={ codeBlockStyle() }><code>style := op.NewStyle().
     Background(op.Gradient(15)).
     Color(op.Color.Blue(9)).
     Padding(op.Size(4)).
@@ -184,8 +179,8 @@ func exampleStyle() string {
 
 func codeBlockStyle() string {
 	return op.NewStyle().
-		Background(op.Color.Gray(1)).
-		Color(op.Color.Text()).
+		Background(op.Color.Gray(11)).
+		Color(op.Color.Gray(0)).
 		Padding(op.Size(3)).
 		BorderRadius(op.Radius(2)).
 		Custom("overflow-x", "auto").
