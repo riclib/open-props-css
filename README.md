@@ -93,6 +93,36 @@ Returns an HTTP handler that serves an interactive stylebook showcasing all avai
 ### `uicss.CSS() string`
 Returns the raw CSS as a string for inline embedding or custom processing.
 
+## Type-Safe CSS Variables (op package)
+
+The `op` package provides Go-native access to all Open Props CSS variables:
+
+```go
+import "github.com/riclib/open-props-css/op"
+
+// Use type-safe CSS variables
+style := fmt.Sprintf("color: %s; padding: %s;", 
+    op.Color.Blue(6),     // "var(--blue-6)"
+    op.Size(4))           // "var(--size-4)"
+
+// Build complex styles with the fluent API
+buttonStyle := op.NewStyle().
+    Background(op.Color.Primary()).
+    Color("white").
+    Padding(op.Size(3)).
+    BorderRadius(op.Radius(2)).
+    String()
+```
+
+Available APIs:
+- **Colors**: `op.Color.Red(5)`, `op.Color.Background()`, etc.
+- **Sizes**: `op.Size(4)`, `op.SizeFluid(3)`, etc.
+- **Typography**: `op.Font.Size(3)`, `op.Font.Weight(6)`, etc.
+- **Animations**: `op.Animation.FadeIn()`, `op.Animation.Bounce()`, etc.
+- **And more**: Shadows, borders, gradients, easing functions
+
+See [CSSREF.md](CSSREF.md#go-api-op-package) for complete documentation.
+
 ## Theme Support
 
 The framework automatically respects the user's system theme preference. You can also manually control the theme:

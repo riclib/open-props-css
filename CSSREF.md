@@ -9,6 +9,7 @@
 6. [Utility Classes](#utility-classes)
 7. [Open Props Variables](#open-props-variables)
 8. [Customization Examples](#customization-examples)
+9. [Go API (op package)](#go-api-op-package)
 
 ## Installation & Setup
 
@@ -451,6 +452,221 @@ The framework automatically switches between light and dark themes based on syst
         Fully customized with Open Props
     </p>
 </div>
+```
+
+## Go API (op package)
+
+The `op` package provides type-safe Go access to all Open Props CSS variables. This allows you to generate dynamic styles in your Go code while maintaining consistency with the design system.
+
+### Installation
+```go
+import "github.com/riclib/open-props-css/op"
+```
+
+### Colors
+
+#### Color Scales
+All Open Props colors are available with scale values 0-12:
+```go
+// Basic usage
+op.Color.Gray(6)    // "var(--gray-6)"
+op.Color.Blue(9)    // "var(--blue-9)"
+op.Color.Red(5)     // "var(--red-5)"
+
+// Available colors:
+// Gray, Stone, Red, Pink, Purple, Violet, Indigo, Blue, Cyan, Teal,
+// Green, Lime, Yellow, Orange, Choco, Brown, Sand, Camo, Jungle
+
+// Theme colors
+op.Color.Background()    // "var(--background)"
+op.Color.Surface()       // "var(--surface)"
+op.Color.SurfaceAlt()    // "var(--surface-alt)"
+op.Color.Text()          // "var(--text)"
+op.Color.TextMuted()     // "var(--text-muted)"
+op.Color.Border()        // "var(--border)"
+op.Color.Primary()       // "var(--primary)"
+op.Color.PrimaryHover()  // "var(--primary-hover)"
+```
+
+### Sizes and Spacing
+```go
+// Size scale 1-15 (plus 00, 000)
+op.Size(4)         // "var(--size-4)"
+op.Size(-1)        // "var(--size-00)"
+op.Size(-2)        // "var(--size-000)"
+
+// Pixel-based sizes
+op.SizePx(10)      // "var(--size-px-10)"
+
+// Relative sizes
+op.SizeRelative(5) // "var(--size-relative-5)"
+
+// Content sizes
+op.SizeContent(2)  // "var(--size-content-2)"
+op.SizeHeader(3)   // "var(--size-header-3)"
+
+// Fluid sizes
+op.SizeFluid(4)    // "var(--size-fluid-4)"
+```
+
+### Typography
+```go
+// Font sizes 0-8
+op.Font.Size(3)           // "var(--font-size-3)"
+op.Font.SizeFluid(2)      // "var(--font-size-fluid-2)"
+
+// Font weights 1-9
+op.Font.Weight(6)         // "var(--font-weight-6)"
+
+// Line heights 0-5
+op.Font.LineHeight(3)     // "var(--font-lineheight-3)"
+
+// Letter spacing 0-7
+op.Font.LetterSpacing(2)  // "var(--font-letterspacing-2)"
+
+// Font families
+op.Font.Sans()            // "var(--font-sans)"
+op.Font.Serif()           // "var(--font-serif)"
+op.Font.Mono()            // "var(--font-mono)"
+```
+
+### Borders and Radius
+```go
+// Border sizes 1-5
+op.Border.Size(2)         // "var(--border-size-2)"
+
+// Border radius 1-6
+op.Radius(3)              // "var(--radius-3)"
+op.RadiusRound()          // "var(--radius-round)"
+op.RadiusBlob(2)          // "var(--radius-blob-2)"
+op.RadiusConditional(4)   // "var(--radius-conditional-4)"
+```
+
+### Shadows
+```go
+// Shadow scale 1-6
+op.Shadow(3)       // "var(--shadow-3)"
+op.ShadowColor(4)  // "var(--shadow-color-4)"
+op.ShadowStrength(50) // "var(--shadow-strength-50)"
+```
+
+### Gradients
+```go
+// Gradient scale 1-30
+op.Gradient(7)     // "var(--gradient-7)"
+```
+
+### Animations
+```go
+// Animation presets
+op.Animation.FadeIn()        // "var(--animation-fade-in)"
+op.Animation.FadeOut()       // "var(--animation-fade-out)"
+op.Animation.ScaleUp()       // "var(--animation-scale-up)"
+op.Animation.ScaleDown()     // "var(--animation-scale-down)"
+op.Animation.SlideInUp()     // "var(--animation-slide-in-up)"
+op.Animation.SlideInDown()   // "var(--animation-slide-in-down)"
+op.Animation.SlideInLeft()   // "var(--animation-slide-in-left)"
+op.Animation.SlideInRight()  // "var(--animation-slide-in-right)"
+op.Animation.Bounce()        // "var(--animation-bounce)"
+op.Animation.Pulse()         // "var(--animation-pulse)"
+op.Animation.Spin()          // "var(--animation-spin)"
+// ... and many more
+```
+
+### Easing Functions
+```go
+// Basic easing 1-5
+op.Ease.Default(3)     // "var(--ease-3)"
+op.Ease.In(2)          // "var(--ease-in-2)"
+op.Ease.Out(4)         // "var(--ease-out-4)"
+op.Ease.InOut(3)       // "var(--ease-in-out-3)"
+
+// Elastic easing
+op.Ease.Elastic(2)     // "var(--ease-elastic-2)"
+op.Ease.Squish(3)      // "var(--ease-squish-3)"
+op.Ease.Spring(4)      // "var(--ease-spring-4)"
+
+// Named easing
+op.Ease.CircIn()       // "var(--ease-circ-in)"
+op.Ease.CubicInOut()   // "var(--ease-cubic-in-out)"
+op.Ease.ExpoOut()      // "var(--ease-expo-out)"
+```
+
+### Style Builder
+The style builder provides a fluent interface for creating inline styles:
+```go
+style := op.NewStyle().
+    Background(op.Gradient(15)).
+    Color(op.Color.Blue(9)).
+    Padding(op.Size(4)).
+    PaddingTop(op.Size(6)).
+    Margin(op.Size(2)).
+    BorderRadius(op.Radius(3)).
+    BoxShadow(op.Shadow(4)).
+    FontSize(op.Font.Size(3)).
+    FontWeight(op.Font.Weight(6)).
+    Animation(op.Animation.FadeIn()).
+    TransitionProperty("all").
+    TransitionDuration("200ms").
+    TransitionTimingFunction(op.Ease.Out(3)).
+    String()
+
+// Result: "background: var(--gradient-15); color: var(--blue-9); ..."
+```
+
+### Practical Examples
+
+#### Dynamic Component Styling
+```go
+func ButtonStyle(variant string, size int) string {
+    style := op.NewStyle().
+        Padding(op.Size(size)).
+        BorderRadius(op.Radius(2)).
+        FontWeight(op.Font.Weight(6))
+    
+    switch variant {
+    case "primary":
+        style.Background(op.Color.Primary()).
+            Color("white").
+            Custom("border", "none")
+    case "secondary":
+        style.Background("transparent").
+            Color(op.Color.Text()).
+            Custom("border", fmt.Sprintf("1px solid %s", op.Color.Border()))
+    }
+    
+    return style.String()
+}
+```
+
+#### Theme-Aware Cards
+```go
+func CardStyle(elevated bool) string {
+    style := op.NewStyle().
+        Background(op.Color.Surface()).
+        Padding(op.Size(5)).
+        BorderRadius(op.Radius(3))
+    
+    if elevated {
+        style.BoxShadow(op.Shadow(3))
+    } else {
+        style.Custom("border", fmt.Sprintf("1px solid %s", op.Color.Border()))
+    }
+    
+    return style.String()
+}
+```
+
+#### Responsive Spacing
+```go
+func ResponsiveSection() string {
+    return op.NewStyle().
+        Padding(op.Size(4)).
+        Custom("padding-block", op.SizeFluid(3)).
+        Custom("max-width", op.SizeContent(3)).
+        Margin("0 auto").
+        String()
+}
 ```
 
 ## Best Practices
