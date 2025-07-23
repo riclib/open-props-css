@@ -1,0 +1,341 @@
+package main
+
+import (
+	"fmt"
+	"github.com/riclib/open-props-css/op"
+)
+
+// Layout wraps the entire page
+templ Layout(title string) {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<title>{ title }</title>
+			<link rel="stylesheet" href="/static/dashboard.css"/>
+		</head>
+		<body>
+			<nav>
+				<h1>Op Package Demo</h1>
+				<ul>
+					<li><a href="/" class="active">Components</a></li>
+					<li><a href="/colors">Colors</a></li>
+					<li><a href="/spacing">Spacing</a></li>
+					<li><a href="/animations">Animations</a></li>
+				</ul>
+			</nav>
+			<main>
+				{ children... }
+			</main>
+		</body>
+	</html>
+}
+
+// DynamicButton demonstrates using op package for dynamic styling
+templ DynamicButton(text string, variant string, size int) {
+	<button style={ buttonStyle(variant, size) }>
+		{ text }
+	</button>
+}
+
+func buttonStyle(variant string, size int) string {
+	style := op.NewStyle().
+		Padding(op.Size(size)).
+		BorderRadius(op.Radius(2)).
+		FontWeight(op.Font.Weight(6)).
+		TransitionProperty("all").
+		TransitionDuration("200ms").
+		TransitionTimingFunction(op.Ease.Out(3))
+
+	switch variant {
+	case "primary":
+		style.Background(op.Color.Primary()).
+			Color("white").
+			Custom("border", "none")
+	case "secondary":
+		style.Background("transparent").
+			Color(op.Color.Text()).
+			Custom("border", fmt.Sprintf("1px solid %s", op.Color.Border()))
+	case "success":
+		style.Background(op.Color.Green(6)).
+			Color("white").
+			Custom("border", "none")
+	case "danger":
+		style.Background(op.Color.Red(6)).
+			Color("white").
+			Custom("border", "none")
+	default:
+		style.Background(op.Color.Gray(3)).
+			Color(op.Color.Text()).
+			Custom("border", "none")
+	}
+
+	return style.String()
+}
+
+// ColorScale shows all shades of a color
+templ ColorScale(name string, colorFunc func(int) string) {
+	<div class="mb-4">
+		<h3>{ name }</h3>
+		<div class="grid grid-cols-13 gap-1">
+			for i := 0; i <= 12; i++ {
+				<div 
+					style={ fmt.Sprintf("background: %s; height: 60px; border-radius: %s; display: flex; align-items: center; justify-content: center; color: %s", 
+						colorFunc(i), 
+						op.Radius(1),
+						textColorForBackground(i)) }
+				>
+					{ fmt.Sprintf("%d", i) }
+				</div>
+			}
+		</div>
+	</div>
+}
+
+func textColorForBackground(scale int) string {
+	if scale < 6 {
+		return op.Color.Gray(12)
+	}
+	return op.Color.Gray(0)
+}
+
+// AnimatedCard demonstrates animations
+templ AnimatedCard(title, content, animation string) {
+	<div class="card" style={ fmt.Sprintf("animation: %s", animation) }>
+		<h3>{ title }</h3>
+		<p>{ content }</p>
+		<p class="text-muted text-small">Animation: { animation }</p>
+	</div>
+}
+
+// SpacingVisualizer shows spacing scale
+templ SpacingVisualizer() {
+	<div class="card">
+		<h3>Spacing Scale</h3>
+		<div class="flex flex-col gap-2">
+			@SpacingItem(-2, "000")
+			@SpacingItem(-1, "00")
+			for i := 1; i <= 15; i++ {
+				@SpacingItem(i, fmt.Sprintf("%d", i))
+			}
+		</div>
+	</div>
+}
+
+templ SpacingItem(size int, label string) {
+	<div class="flex items-center gap-3">
+		<span class="text-muted" style="width: 3rem">Size { label }:</span>
+		<div 
+			style={ fmt.Sprintf("background: %s; width: %s; height: %s", 
+				op.Gradient(12), 
+				op.Size(size), 
+				op.Size(3)) }
+		></div>
+		<span class="text-small text-muted">{ op.Size(size) }</span>
+	</div>
+}
+
+// StyleBuilderExample shows live style building
+templ StyleBuilderExample() {
+	<div class="card">
+		<h3>Style Builder API</h3>
+		<div class="grid grid-cols-2 gap-4">
+			<div>
+				<h4>Code:</h4>
+				<pre style={ fmt.Sprintf("background: %s; padding: %s; border-radius: %s; overflow-x: auto", 
+					op.Color.Gray(1), 
+					op.Size(3), 
+					op.Radius(2)) }>
+style := op.NewStyle().
+    Background(op.Gradient(15)).
+    Color(op.Color.Blue(9)).
+    Padding(op.Size(4)).
+    PaddingTop(op.Size(6)).
+    BorderRadius(op.Radius(3)).
+    BoxShadow(op.Shadow(4)).
+    FontSize(op.Font.Size(3)).
+    Animation(op.Animation.FadeIn()).
+    String()</pre>
+			</div>
+			<div>
+				<h4>Result:</h4>
+				<div style={ exampleStyle() }>
+					This element uses the style built with the op package!
+				</div>
+			</div>
+		</div>
+	</div>
+}
+
+func exampleStyle() string {
+	return op.NewStyle().
+		Background(op.Gradient(15)).
+		Color(op.Color.Blue(9)).
+		Padding(op.Size(4)).
+		PaddingTop(op.Size(6)).
+		BorderRadius(op.Radius(3)).
+		BoxShadow(op.Shadow(4)).
+		FontSize(op.Font.Size(3)).
+		Animation(op.Animation.FadeIn()).
+		String()
+}
+
+// HomePage shows all components
+templ HomePage() {
+	@Layout("Op Package Demo") {
+		<header>
+			<h2>Component Examples</h2>
+			<p>Using the op package for type-safe styling</p>
+		</header>
+
+		<section class="mb-4">
+			<h3>Dynamic Buttons</h3>
+			<div class="flex gap-2 flex-wrap">
+				@DynamicButton("Small Primary", "primary", 2)
+				@DynamicButton("Medium Secondary", "secondary", 3)
+				@DynamicButton("Large Success", "success", 4)
+				@DynamicButton("Extra Large Danger", "danger", 5)
+			</div>
+		</section>
+
+		@StyleBuilderExample()
+
+		<section class="mt-4">
+			<h3>Theme-Aware Cards</h3>
+			<div class="grid grid-cols-2 gap-4">
+				<div style={ cardStyle(false) }>
+					<h4>Normal Card</h4>
+					<p>Uses op.Color.Surface() for background</p>
+				</div>
+				<div style={ cardStyle(true) }>
+					<h4>Elevated Card</h4>
+					<p>Adds shadow with op.Shadow(3)</p>
+				</div>
+			</div>
+		</section>
+	}
+}
+
+func cardStyle(elevated bool) string {
+	style := op.NewStyle().
+		Background(op.Color.Surface()).
+		Padding(op.Size(5)).
+		BorderRadius(op.Radius(3))
+
+	if elevated {
+		style.BoxShadow(op.Shadow(3))
+	} else {
+		style.Custom("border", fmt.Sprintf("1px solid %s", op.Color.Border()))
+	}
+
+	return style.String()
+}
+
+// ColorsPage shows color scales
+templ ColorsPage() {
+	@Layout("Colors - Op Package Demo") {
+		<header>
+			<h2>Color Scales</h2>
+			<p>All Open Props colors with op.Color API</p>
+		</header>
+
+		@ColorScale("Gray", op.Color.Gray)
+		@ColorScale("Blue", op.Color.Blue)
+		@ColorScale("Red", op.Color.Red)
+		@ColorScale("Green", op.Color.Green)
+		@ColorScale("Yellow", op.Color.Yellow)
+		@ColorScale("Purple", op.Color.Purple)
+		@ColorScale("Pink", op.Color.Pink)
+		@ColorScale("Orange", op.Color.Orange)
+
+		<div class="card mt-4">
+			<h3>Theme Colors</h3>
+			<div class="grid grid-cols-2 gap-4">
+				<div>
+					<div style={ fmt.Sprintf("background: %s; padding: %s; border-radius: %s", 
+						op.Color.Background(), op.Size(3), op.Radius(2)) }>
+						Background: { op.Color.Background() }
+					</div>
+				</div>
+				<div>
+					<div style={ fmt.Sprintf("background: %s; padding: %s; border-radius: %s", 
+						op.Color.Surface(), op.Size(3), op.Radius(2)) }>
+						Surface: { op.Color.Surface() }
+					</div>
+				</div>
+				<div>
+					<div style={ fmt.Sprintf("background: %s; color: white; padding: %s; border-radius: %s", 
+						op.Color.Primary(), op.Size(3), op.Radius(2)) }>
+						Primary: { op.Color.Primary() }
+					</div>
+				</div>
+				<div>
+					<div style={ fmt.Sprintf("border: 1px solid %s; padding: %s; border-radius: %s", 
+						op.Color.Border(), op.Size(3), op.Radius(2)) }>
+						Border: { op.Color.Border() }
+					</div>
+				</div>
+			</div>
+		</div>
+	}
+}
+
+// SpacingPage shows spacing system
+templ SpacingPage() {
+	@Layout("Spacing - Op Package Demo") {
+		<header>
+			<h2>Spacing System</h2>
+			<p>Visual guide to op.Size() values</p>
+		</header>
+
+		@SpacingVisualizer()
+
+		<div class="card mt-4">
+			<h3>Fluid Spacing</h3>
+			<p>Responsive spacing that scales with viewport</p>
+			<div class="flex gap-4">
+				for i := 0; i <= 10; i++ {
+					<div style={ fmt.Sprintf("background: %s; width: %s; height: %s; border-radius: %s", 
+						op.Gradient(20+i), 
+						op.SizeFluid(i), 
+						op.Size(5),
+						op.Radius(2)) }>
+					</div>
+				}
+			</div>
+		</div>
+	}
+}
+
+// AnimationsPage shows animations
+templ AnimationsPage() {
+	@Layout("Animations - Op Package Demo") {
+		<header>
+			<h2>Animations</h2>
+			<p>Open Props animations via op.Animation</p>
+		</header>
+
+		<div class="grid grid-cols-3 gap-4">
+			@AnimatedCard("Fade In", "Smooth entrance animation", op.Animation.FadeIn())
+			@AnimatedCard("Scale Up", "Grows from small to normal", op.Animation.ScaleUp())
+			@AnimatedCard("Slide In Up", "Slides up from below", op.Animation.SlideInUp())
+			@AnimatedCard("Bounce", "Playful bounce effect", op.Animation.Bounce())
+			@AnimatedCard("Pulse", "Gentle pulsing animation", op.Animation.Pulse())
+			@AnimatedCard("Shake X", "Horizontal shake", op.Animation.ShakeX())
+		</div>
+
+		<div class="card mt-4">
+			<h3>Easing Functions</h3>
+			<div class="grid grid-cols-4 gap-2">
+				for i := 1; i <= 5; i++ {
+					<button style={ fmt.Sprintf("transition: transform 300ms %s", op.Ease.Out(i)) }
+						onmouseover="this.style.transform='scale(1.1)'"
+						onmouseout="this.style.transform='scale(1)'">
+						Ease Out { fmt.Sprintf("%d", i) }
+					</button>
+				}
+			</div>
+		</div>
+	}
+}

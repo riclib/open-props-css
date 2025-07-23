@@ -163,9 +163,57 @@ func (s *Style) Padding(value string) *Style {
 	return s
 }
 
+// PaddingTop adds a padding-top property
+func (s *Style) PaddingTop(value string) *Style {
+	s.props = append(s.props, fmt.Sprintf("padding-top: %s", value))
+	return s
+}
+
+// PaddingBottom adds a padding-bottom property
+func (s *Style) PaddingBottom(value string) *Style {
+	s.props = append(s.props, fmt.Sprintf("padding-bottom: %s", value))
+	return s
+}
+
+// PaddingLeft adds a padding-left property
+func (s *Style) PaddingLeft(value string) *Style {
+	s.props = append(s.props, fmt.Sprintf("padding-left: %s", value))
+	return s
+}
+
+// PaddingRight adds a padding-right property
+func (s *Style) PaddingRight(value string) *Style {
+	s.props = append(s.props, fmt.Sprintf("padding-right: %s", value))
+	return s
+}
+
 // Margin adds a margin property
 func (s *Style) Margin(value string) *Style {
 	s.props = append(s.props, fmt.Sprintf("margin: %s", value))
+	return s
+}
+
+// MarginTop adds a margin-top property
+func (s *Style) MarginTop(value string) *Style {
+	s.props = append(s.props, fmt.Sprintf("margin-top: %s", value))
+	return s
+}
+
+// MarginBottom adds a margin-bottom property
+func (s *Style) MarginBottom(value string) *Style {
+	s.props = append(s.props, fmt.Sprintf("margin-bottom: %s", value))
+	return s
+}
+
+// MarginLeft adds a margin-left property
+func (s *Style) MarginLeft(value string) *Style {
+	s.props = append(s.props, fmt.Sprintf("margin-left: %s", value))
+	return s
+}
+
+// MarginRight adds a margin-right property
+func (s *Style) MarginRight(value string) *Style {
+	s.props = append(s.props, fmt.Sprintf("margin-right: %s", value))
 	return s
 }
 
@@ -196,6 +244,30 @@ func (s *Style) FontSize(value string) *Style {
 // FontWeight adds a font-weight property
 func (s *Style) FontWeight(value string) *Style {
 	s.props = append(s.props, fmt.Sprintf("font-weight: %s", value))
+	return s
+}
+
+// TransitionProperty adds a transition-property property
+func (s *Style) TransitionProperty(value string) *Style {
+	s.props = append(s.props, fmt.Sprintf("transition-property: %s", value))
+	return s
+}
+
+// TransitionDuration adds a transition-duration property
+func (s *Style) TransitionDuration(value string) *Style {
+	s.props = append(s.props, fmt.Sprintf("transition-duration: %s", value))
+	return s
+}
+
+// TransitionTimingFunction adds a transition-timing-function property
+func (s *Style) TransitionTimingFunction(value string) *Style {
+	s.props = append(s.props, fmt.Sprintf("transition-timing-function: %s", value))
+	return s
+}
+
+// Transition adds a transition shorthand property
+func (s *Style) Transition(value string) *Style {
+	s.props = append(s.props, fmt.Sprintf("transition: %s", value))
 	return s
 }
 
