@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+
+# Build output
+# Note: We commit the built CSS file for Go module distribution
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Go
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+vendor/

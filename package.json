@@ -1,0 +1,16 @@
+{
+  "name": "open-props-css",
+  "version": "1.0.0",
+  "description": "Build tools for Open Props CSS Framework for Go",
+  "private": true,
+  "scripts": {
+    "build": "node build.js",
+    "watch": "node build.js --watch"
+  },
+  "devDependencies": {
+    "open-props": "^1.6.21",
+    "postcss": "^8.4.31",
+    "postcss-cli": "^10.1.0",
+    "postcss-import": "^15.1.0"
+  }
+}

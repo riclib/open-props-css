@@ -1,0 +1,58 @@
+/* Import Open Props */
+@import "open-props/open-props.min.css";
+@import "open-props/normalize.min.css";
+
+/* Custom theme variables */
+:root {
+  /* Semantic color tokens that adapt to theme */
+  --background: light-dark(#ffffff, #0a0a0b);
+  --surface: light-dark(#f8f9fa, #0f0f10);
+  --surface-alt: light-dark(#e9ecef, #1a1a1b);
+  --text: light-dark(#212529, #ffffff);
+  --text-muted: light-dark(#6c757d, #a0a0a0);
+  --border: light-dark(#dee2e6, #1a1a1b);
+  --primary: light-dark(#0066cc, #3b82f6);
+  --primary-hover: light-dark(#0052a3, #2563eb);
+  
+  /* Additional theme tokens */
+  --shadow: light-dark(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3));
+  --shadow-lg: light-dark(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.5));
+  
+  /* Typography */
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+  
+  /* Responsive spacing */
+  --container-padding: var(--size-4);
+  --section-spacing: var(--size-7);
+}
+
+/* Light theme override */
+.light {
+  color-scheme: light;
+  --background: #ffffff;
+  --surface: #f8f9fa;
+  --surface-alt: #e9ecef;
+  --text: #212529;
+  --text-muted: #6c757d;
+  --border: #dee2e6;
+  --primary: #0066cc;
+  --primary-hover: #0052a3;
+  --shadow: rgba(0, 0, 0, 0.1);
+  --shadow-lg: rgba(0, 0, 0, 0.15);
+}
+
+/* Dark theme override */
+.dark {
+  color-scheme: dark;
+  --background: #0a0a0b;
+  --surface: #0f0f10;
+  --surface-alt: #1a1a1b;
+  --text: #ffffff;
+  --text-muted: #a0a0a0;
+  --border: #1a1a1b;
+  --primary: #3b82f6;
+  --primary-hover: #2563eb;
+  --shadow: rgba(0, 0, 0, 0.3);
+  --shadow-lg: rgba(0, 0, 0, 0.5);
+}

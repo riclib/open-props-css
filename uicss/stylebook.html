@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Props CSS Stylebook</title>
+    <!-- CSS_PLACEHOLDER -->
+</head>
+<body>
+    <nav>
+        <h1>Stylebook</h1>
+        <ul>
+            <li><a href="#typography" class="active">Typography</a></li>
+            <li><a href="#colors">Colors</a></li>
+            <li><a href="#buttons">Buttons</a></li>
+            <li><a href="#forms">Forms</a></li>
+            <li><a href="#tables">Tables</a></li>
+            <li><a href="#cards">Cards</a></li>
+            <li><a href="#alerts">Alerts</a></li>
+            <li><a href="#badges">Badges</a></li>
+            <li><a href="#grid">Grid</a></li>
+            <li><a href="#utilities">Utilities</a></li>
+            <li><a href="#customization">Customization</a></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <header>
+            <h2>Open Props CSS Framework</h2>
+            <div class="flex gap-2">
+                <button onclick="document.documentElement.classList.remove('dark', 'light')">Auto</button>
+                <button onclick="document.documentElement.classList.add('light'); document.documentElement.classList.remove('dark')">Light</button>
+                <button onclick="document.documentElement.classList.add('dark'); document.documentElement.classList.remove('light')">Dark</button>
+            </div>
+        </header>
+        
+        <section id="typography">
+            <h3>Typography</h3>
+            <div class="card">
+                <h1>Heading 1</h1>
+                <h2>Heading 2</h2>
+                <h3>Heading 3</h3>
+                <h4>Heading 4</h4>
+                <h5>Heading 5</h5>
+                <h6>Heading 6</h6>
+                
+                <p>This is a paragraph with some <strong>bold text</strong> and some <em>italic text</em>. Here's a <a href="#">link</a> to click on.</p>
+                
+                <p class="text-muted">This is muted text using the .text-muted class.</p>
+                
+                <blockquote>
+                    This is a blockquote. It's great for highlighting important quotes or notes.
+                </blockquote>
+                
+                <pre><code>// Code block
+function hello() {
+    console.log("Hello, World!");
+}</code></pre>
+            </div>
+            
+            <h4 class="mt-4">Typography Code Examples</h4>
+            <pre><code>&lt;h1&gt;Heading 1&lt;/h1&gt;
+&lt;h2&gt;Heading 2&lt;/h2&gt;
+&lt;p&gt;Regular paragraph text&lt;/p&gt;
+&lt;p class="text-muted"&gt;Muted text&lt;/p&gt;
+&lt;p class="text-large"&gt;Large text&lt;/p&gt;
+&lt;p class="text-small"&gt;Small text&lt;/p&gt;
+&lt;p class="text-center"&gt;Centered text&lt;/p&gt;
+&lt;p class="text-right"&gt;Right aligned text&lt;/p&gt;
+&lt;p class="font-bold"&gt;Bold weight text&lt;/p&gt;
+&lt;p class="font-medium"&gt;Medium weight text&lt;/p&gt;</code></pre>
+        </section>
+        
+        <section id="colors" class="mt-4">
+            <h3>Colors</h3>
+            <div class="grid grid-cols-4 gap-2">
+                <div class="card">
+                    <div class="p-4 rounded" style="background-color: var(--background)">
+                        <p class="text-center">Background</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="p-4 rounded" style="background-color: var(--surface)">
+                        <p class="text-center">Surface</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="p-4 rounded" style="background-color: var(--surface-alt)">
+                        <p class="text-center">Surface Alt</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="p-4 rounded" style="background-color: var(--primary); color: white">
+                        <p class="text-center">Primary</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="buttons" class="mt-4">
+            <h3>Buttons</h3>
+            <div class="card">
+                <div class="flex flex-wrap gap-2">
+                    <button>Default Button</button>
+                    <button class="primary">Primary Button</button>
+                    <button class="secondary">Secondary Button</button>
+                    <button disabled>Disabled Button</button>
+                </div>
+                
+                <h4 class="mt-4">Button Sizes</h4>
+                <div class="flex items-center gap-2">
+                    <button class="small">Small</button>
+                    <button>Default</button>
+                    <button class="large">Large</button>
+                </div>
+            </div>
+            
+            <h4 class="mt-4">Button Code Examples</h4>
+            <pre><code>&lt;button&gt;Default Button&lt;/button&gt;
+&lt;button class="primary"&gt;Primary Button&lt;/button&gt;
+&lt;button class="secondary"&gt;Secondary Button&lt;/button&gt;
+&lt;button disabled&gt;Disabled Button&lt;/button&gt;
+
+&lt;!-- Button sizes --&gt;
+&lt;button class="small"&gt;Small&lt;/button&gt;
+&lt;button class="large"&gt;Large&lt;/button&gt;</code></pre>
+        </section>
+        
+        <section id="forms" class="mt-4">
+            <h3>Forms</h3>
+            <div class="card">
+                <form>
+                    <div class="form-group">
+                        <label for="input-text">Text Input</label>
+                        <input type="text" id="input-text" placeholder="Enter some text">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="input-email">Email Input</label>
+                        <input type="email" id="input-email" placeholder="email@example.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="select">Select</label>
+                        <select id="select">
+                            <option>Option 1</option>
+                            <option>Option 2</option>
+                            <option>Option 3</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="textarea">Textarea</label>
+                        <textarea id="textarea" rows="3" placeholder="Enter multiple lines of text"></textarea>
+                    </div>
+                    
+                    <div class="input-group">
+                        <input type="text" placeholder="Search...">
+                        <button class="primary">Search</button>
+                    </div>
+                </form>
+            </div>
+            
+            <h4 class="mt-4">Form Code Examples</h4>
+            <pre><code>&lt;!-- Form groups --&gt;
+&lt;div class="form-group"&gt;
+    &lt;label for="input"&gt;Label&lt;/label&gt;
+    &lt;input type="text" id="input" placeholder="Enter text"&gt;
+&lt;/div&gt;
+
+&lt;!-- Select --&gt;
+&lt;select&gt;
+    &lt;option&gt;Option 1&lt;/option&gt;
+    &lt;option&gt;Option 2&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;!-- Textarea --&gt;
+&lt;textarea rows="3" placeholder="Enter text"&gt;&lt;/textarea&gt;
+
+&lt;!-- Input group --&gt;
+&lt;div class="input-group"&gt;
+    &lt;input type="text" placeholder="Search..."&gt;
+    &lt;button class="primary"&gt;Search&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+        </section>
+        
+        <section id="tables" class="mt-4">
+            <h3>Tables</h3>
+            <div class="card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>John Doe</td>
+                            <td>john@example.com</td>
+                            <td>Admin</td>
+                            <td><span class="badge success">Active</span></td>
+                        </tr>
+                        <tr>
+                            <td>Jane Smith</td>
+                            <td>jane@example.com</td>
+                            <td>User</td>
+                            <td><span class="badge primary">Active</span></td>
+                        </tr>
+                        <tr>
+                            <td>Bob Johnson</td>
+                            <td>bob@example.com</td>
+                            <td>User</td>
+                            <td><span class="badge warning">Pending</span></td>
+                        </tr>
+                        <tr>
+                            <td>Alice Brown</td>
+                            <td>alice@example.com</td>
+                            <td>User</td>
+                            <td><span class="badge danger">Inactive</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h4 class="mt-4">Table Code Example</h4>
+            <pre><code>&lt;table&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Name&lt;/th&gt;
+            &lt;th&gt;Email&lt;/th&gt;
+            &lt;th&gt;Status&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;John Doe&lt;/td&gt;
+            &lt;td&gt;john@example.com&lt;/td&gt;
+            &lt;td&gt;&lt;span class="badge success"&gt;Active&lt;/span&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+        </section>
+        
+        <section id="cards" class="mt-4">
+            <h3>Cards</h3>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="card">
+                    <h4>Card Title</h4>
+                    <p>This is a card component with some content inside. Cards are great for grouping related content.</p>
+                    <button class="primary">Action</button>
+                </div>
+                
+                <div class="card">
+                    <h4>Another Card</h4>
+                    <p class="text-muted">Cards can contain any kind of content, including forms, images, or other components.</p>
+                    <div class="flex gap-2">
+                        <button>Cancel</button>
+                        <button class="primary">Save</button>
+                    </div>
+                </div>
+            </div>
+            
+            <h4 class="mt-4">Card Code Example</h4>
+            <pre><code>&lt;div class="card"&gt;
+    &lt;h4&gt;Card Title&lt;/h4&gt;
+    &lt;p&gt;Card content goes here.&lt;/p&gt;
+    &lt;button class="primary"&gt;Action&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+        </section>
+        
+        <section id="alerts" class="mt-4">
+            <h3>Alerts</h3>
+            <div class="alert info">
+                <strong>Info:</strong> This is an informational alert message.
+            </div>
+            <div class="alert success">
+                <strong>Success:</strong> Your action was completed successfully!
+            </div>
+            <div class="alert warning">
+                <strong>Warning:</strong> Please be careful with this action.
+            </div>
+            <div class="alert danger">
+                <strong>Error:</strong> Something went wrong. Please try again.
+            </div>
+            
+            <h4 class="mt-4">Alert Code Examples</h4>
+            <pre><code>&lt;div class="alert info"&gt;
+    &lt;strong&gt;Info:&lt;/strong&gt; This is an informational alert.
+&lt;/div&gt;
+
+&lt;div class="alert success"&gt;
+    &lt;strong&gt;Success:&lt;/strong&gt; Action completed successfully!
+&lt;/div&gt;
+
+&lt;div class="alert warning"&gt;
+    &lt;strong&gt;Warning:&lt;/strong&gt; Please be careful.
+&lt;/div&gt;
+
+&lt;div class="alert danger"&gt;
+    &lt;strong&gt;Error:&lt;/strong&gt; Something went wrong.
+&lt;/div&gt;</code></pre>
+        </section>
+        
+        <section id="badges" class="mt-4">
+            <h3>Badges</h3>
+            <div class="card">
+                <div class="flex flex-wrap gap-2">
+                    <span class="badge">Default</span>
+                    <span class="badge primary">Primary</span>
+                    <span class="badge success">Success</span>
+                    <span class="badge warning">Warning</span>
+                    <span class="badge danger">Danger</span>
+                </div>
+            </div>
+            
+            <h4 class="mt-4">Badge Code Examples</h4>
+            <pre><code>&lt;span class="badge"&gt;Default&lt;/span&gt;
+&lt;span class="badge primary"&gt;Primary&lt;/span&gt;
+&lt;span class="badge success"&gt;Success&lt;/span&gt;
+&lt;span class="badge warning"&gt;Warning&lt;/span&gt;
+&lt;span class="badge danger"&gt;Danger&lt;/span&gt;</code></pre>
+        </section>
+        
+        <section id="grid" class="mt-4">
+            <h3>Grid System</h3>
+            <div class="grid grid-cols-3 gap-3">
+                <div class="card">
+                    <p>Grid Item 1</p>
+                </div>
+                <div class="card">
+                    <p>Grid Item 2</p>
+                </div>
+                <div class="card">
+                    <p>Grid Item 3</p>
+                </div>
+            </div>
+            
+            <h4 class="mt-4">Loading State</h4>
+            <div class="card">
+                <div class="flex items-center gap-3">
+                    <div class="spinner"></div>
+                    <span>Loading content...</span>
+                </div>
+            </div>
+            
+            <h4 class="mt-4">Grid & Layout Code Examples</h4>
+            <pre><code>&lt;!-- Grid layouts --&gt;
+&lt;div class="grid grid-cols-2 gap-4"&gt;
+    &lt;div&gt;Column 1&lt;/div&gt;
+    &lt;div&gt;Column 2&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="grid grid-cols-3 gap-3"&gt;
+    &lt;div&gt;Item 1&lt;/div&gt;
+    &lt;div&gt;Item 2&lt;/div&gt;
+    &lt;div&gt;Item 3&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Flexbox utilities --&gt;
+&lt;div class="flex gap-2"&gt;
+    &lt;button&gt;Button 1&lt;/button&gt;
+    &lt;button&gt;Button 2&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;div class="flex items-center justify-between"&gt;
+    &lt;h3&gt;Title&lt;/h3&gt;
+    &lt;button&gt;Action&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- Loading spinner --&gt;
+&lt;div class="spinner"&gt;&lt;/div&gt;</code></pre>
+        </section>
+        
+        <section id="utilities" class="mt-4">
+            <h3>Utility Classes</h3>
+            <div class="card">
+                <h4>Spacing Utilities</h4>
+                <p>Margin and padding utilities are available from 0-4:</p>
+                <ul>
+                    <li><code>.m-0</code> to <code>.m-4</code> - All sides margin</li>
+                    <li><code>.mt-0</code> to <code>.mt-4</code> - Top margin</li>
+                    <li><code>.mb-0</code> to <code>.mb-4</code> - Bottom margin</li>
+                    <li><code>.p-0</code> to <code>.p-4</code> - All sides padding</li>
+                    <li><code>.px-1</code> to <code>.px-4</code> - Horizontal padding</li>
+                    <li><code>.py-1</code> to <code>.py-4</code> - Vertical padding</li>
+                </ul>
+                
+                <h4 class="mt-3">Display Utilities</h4>
+                <ul>
+                    <li><code>.hidden</code> - Hide element</li>
+                    <li><code>.block</code> - Display block</li>
+                    <li><code>.inline</code> - Display inline</li>
+                    <li><code>.flex</code> - Display flex</li>
+                    <li><code>.grid</code> - Display grid</li>
+                </ul>
+                
+                <h4 class="mt-3">Border & Shadow</h4>
+                <ul>
+                    <li><code>.border</code> - Add border</li>
+                    <li><code>.border-0</code> - Remove border</li>
+                    <li><code>.rounded</code> - Rounded corners</li>
+                    <li><code>.rounded-full</code> - Fully rounded</li>
+                    <li><code>.shadow</code> - Box shadow</li>
+                    <li><code>.shadow-lg</code> - Large box shadow</li>
+                </ul>
+                
+                <h4 class="mt-3">Other Utilities</h4>
+                <ul>
+                    <li><code>.w-full</code> - Width 100%</li>
+                    <li><code>.cursor-pointer</code> - Pointer cursor</li>
+                    <li><code>.select-none</code> - Disable text selection</li>
+                    <li><code>.sr-only</code> - Screen reader only</li>
+                </ul>
+            </div>
+            
+            <h4 class="mt-4">Utility Code Examples</h4>
+            <pre><code>&lt;!-- Spacing --&gt;
+&lt;div class="mt-4 mb-2 px-3"&gt;Spacing example&lt;/div&gt;
+
+&lt;!-- Flexbox with gap --&gt;
+&lt;div class="flex gap-2 items-center justify-between"&gt;
+    &lt;span&gt;Left&lt;/span&gt;
+    &lt;span&gt;Right&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- Border and shadow --&gt;
+&lt;div class="border rounded shadow p-3"&gt;
+    Card with border and shadow
+&lt;/div&gt;
+
+&lt;!-- Combining utilities --&gt;
+&lt;button class="w-full mt-4 rounded-full shadow-lg"&gt;
+    Full width button
+&lt;/button&gt;</code></pre>
+        </section>
+        
+        <section id="customization" class="mt-4">
+            <h3>Customization with Open Props</h3>
+            <div class="card">
+                <p>You can use Open Props variables directly in inline styles for custom designs:</p>
+                
+                <h4 class="mt-4">Color Customization</h4>
+                <div class="flex flex-wrap gap-2 mb-3">
+                    <button style="background-color: var(--purple-6); border-color: var(--purple-7);">Purple Button</button>
+                    <button style="background-color: var(--green-6); border-color: var(--green-7);">Green Button</button>
+                    <button style="background-color: var(--gradient-7); color: white; border: none;">Gradient Button</button>
+                </div>
+                
+                <h4 class="mt-4">Custom Spacing & Sizing</h4>
+                <div class="border rounded p-3" style="padding: var(--size-7); margin-block: var(--size-5);">
+                    <p style="font-size: var(--font-size-5); line-height: var(--font-lineheight-1);">Large text with custom spacing</p>
+                    <p style="font-size: var(--font-size-0); color: var(--gray-6);">Small muted text using Open Props gray scale</p>
+                </div>
+                
+                <h4 class="mt-4">Custom Cards with Gradients</h4>
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="card" style="background: var(--gradient-15); border: none;">
+                        <h5>Gradient Card</h5>
+                        <p>Using Open Props gradient variables</p>
+                    </div>
+                    <div class="card" style="background-color: var(--surface-2); border: 2px solid var(--indigo-3);">
+                        <h5>Custom Border</h5>
+                        <p>Using Open Props color variables</p>
+                    </div>
+                </div>
+                
+                <h4 class="mt-4">Animation Examples</h4>
+                <div class="flex gap-3">
+                    <button style="animation: var(--animation-pulse);">Pulsing Button</button>
+                    <div class="badge" style="animation: var(--animation-bounce);">Bouncing Badge</div>
+                    <div class="spinner" style="width: var(--size-7); height: var(--size-7); border-color: var(--purple-3); border-top-color: var(--purple-6);"></div>
+                </div>
+                
+                <h4 class="mt-4">Custom Shadows & Borders</h4>
+                <div class="p-4" style="background: var(--surface-1); box-shadow: var(--shadow-4); border-radius: var(--radius-3);">
+                    <p>Deep shadow with custom radius</p>
+                </div>
+                
+                <div class="mt-3 p-4" style="border: var(--border-size-2) solid var(--gradient-7); border-radius: var(--radius-2);">
+                    <p>Gradient border effect</p>
+                </div>
+            </div>
+            
+            <h4 class="mt-4">Customization Code Examples</h4>
+            <pre><code>&lt;!-- Custom colored buttons --&gt;
+&lt;button style="background-color: var(--purple-6); border-color: var(--purple-7);"&gt;
+    Purple Button
+&lt;/button&gt;
+
+&lt;!-- Gradient backgrounds --&gt;
+&lt;div class="card" style="background: var(--gradient-15);"&gt;
+    Gradient card content
+&lt;/div&gt;
+
+&lt;!-- Custom spacing using Open Props sizes --&gt;
+&lt;div style="padding: var(--size-7); margin-block: var(--size-5);"&gt;
+    Content with custom spacing
+&lt;/div&gt;
+
+&lt;!-- Typography with Open Props --&gt;
+&lt;p style="font-size: var(--font-size-5); 
+          line-height: var(--font-lineheight-1);
+          font-weight: var(--font-weight-7);"&gt;
+    Large bold text
+&lt;/p&gt;
+
+&lt;!-- Animations --&gt;
+&lt;button style="animation: var(--animation-pulse);"&gt;
+    Animated button
+&lt;/button&gt;
+
+&lt;!-- Custom shadows --&gt;
+&lt;div style="box-shadow: var(--shadow-4);"&gt;
+    Deep shadow box
+&lt;/div&gt;
+
+&lt;!-- Using Open Props colors --&gt;
+&lt;div style="background-color: var(--indigo-1); 
+            color: var(--indigo-9);
+            border: 2px solid var(--indigo-3);"&gt;
+    Indigo themed box
+&lt;/div&gt;
+
+&lt;!-- Combining multiple properties --&gt;
+&lt;div style="background: var(--gradient-22);
+            padding: var(--size-6);
+            border-radius: var(--radius-3);
+            box-shadow: var(--shadow-3);
+            animation: var(--animation-fade-in);"&gt;
+    Fully customized element
+&lt;/div&gt;</code></pre>
+            
+            <h4 class="mt-4">Available Open Props Variables</h4>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <h5>Colors</h5>
+                    <ul class="text-small">
+                        <li><code>--gray-0</code> to <code>--gray-12</code></li>
+                        <li><code>--red-0</code> to <code>--red-12</code></li>
+                        <li><code>--blue-0</code> to <code>--blue-12</code></li>
+                        <li><code>--green-0</code> to <code>--green-12</code></li>
+                        <li><code>--yellow-0</code> to <code>--yellow-12</code></li>
+                        <li><code>--purple-0</code> to <code>--purple-12</code></li>
+                        <li><code>--indigo-0</code> to <code>--indigo-12</code></li>
+                        <li>And many more color scales...</li>
+                    </ul>
+                </div>
+                <div>
+                    <h5>Spacing & Sizes</h5>
+                    <ul class="text-small">
+                        <li><code>--size-1</code> to <code>--size-15</code></li>
+                        <li><code>--font-size-0</code> to <code>--font-size-8</code></li>
+                        <li><code>--font-weight-1</code> to <code>--font-weight-9</code></li>
+                        <li><code>--radius-1</code> to <code>--radius-6</code></li>
+                        <li><code>--shadow-1</code> to <code>--shadow-6</code></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-4">
+                <h5>Gradients</h5>
+                <div class="grid grid-cols-3 gap-2">
+                    <div class="p-3 rounded text-center" style="background: var(--gradient-1); color: white;">Gradient 1</div>
+                    <div class="p-3 rounded text-center" style="background: var(--gradient-7); color: white;">Gradient 7</div>
+                    <div class="p-3 rounded text-center" style="background: var(--gradient-15);">Gradient 15</div>
+                    <div class="p-3 rounded text-center" style="background: var(--gradient-22);">Gradient 22</div>
+                    <div class="p-3 rounded text-center" style="background: var(--gradient-26);">Gradient 26</div>
+                    <div class="p-3 rounded text-center" style="background: var(--gradient-30);">Gradient 30</div>
+                </div>
+            </div>
+            
+            <p class="mt-4 text-muted">Open Props provides over 250 design tokens. Check the <a href="https://open-props.style" target="_blank">Open Props documentation</a> for a complete reference.</p>
+        </section>
+    </main>
+    
+    <script>
+        // Update active nav link based on scroll position
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('nav a');
+        
+        function updateActiveLink() {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', updateActiveLink);
+        
+        // Smooth scroll for nav links
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

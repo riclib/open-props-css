@@ -1,0 +1,12 @@
+(version 1)
+(deny default)
+(allow process-exec)
+(allow process-fork)
+(allow sysctl-read)
+(allow file-read* file-write*
+    (subpath "/Users/riclib/refactor/open-props-css"))
+(allow file-read*
+    (subpath "/usr/")
+    (subpath "/System/")
+    (subpath "/Library/"))
+(allow network*)
