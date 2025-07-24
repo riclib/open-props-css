@@ -34,9 +34,16 @@ http.Handle("/static/dashboard.css", uicss.CSSHandler())
 
 ### Customization
 Use Open Props variables in inline styles:
-```html
-<div style="background: var(--gradient-7); padding: var(--size-4);">
-  <p style="color: var(--indigo-9); font-size: var(--font-size-3);">Custom styled</p>
+```go
+<div style={fmt.Sprintf("background: %s; padding: %s;", op.Gradient(7), op.Size(4))}>
+  <p style={fmt.Sprintf("color: %s; font-size: %s;", op.Color.Indigo(9), op.Font.Size(3))}>Custom styled</p>
+</div>
+```
+
+Or using the Style builder:
+```go
+<div style={op.NewStyle().Background(op.Gradient(7)).Padding(op.Size(4)).String()}>
+  <p style={op.NewStyle().Color(op.Color.Indigo(9)).FontSize(op.Font.Size(3)).String()}>Custom styled</p>
 </div>
 ```
 
