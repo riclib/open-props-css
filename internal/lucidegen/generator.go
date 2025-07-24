@@ -450,7 +450,7 @@ func generateFiles(icons []IconData, config Config) ([]string, error) {
 
 	// Generate search file (optional)
 	if config.IncludeSearch {
-		searchFile := filepath.Join(config.OutputDir, "search.templ")
+		searchFile := filepath.Join(config.OutputDir, "search.go")
 		if err := generateSearchFile(icons, config, searchFile); err != nil {
 			return nil, fmt.Errorf("failed to generate search file: %w", err)
 		}

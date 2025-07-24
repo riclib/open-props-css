@@ -4,5 +4,5 @@ go 1.24.4
 
 require (
 	github.com/a-h/templ v0.3.920
-	github.com/riclib/open-props-css v0.1.0
+	github.com/riclib/open-props-css v0.1.1-0.20250724081251-0a98aadb87ab
 )
