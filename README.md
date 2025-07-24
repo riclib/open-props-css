@@ -31,6 +31,9 @@ func main() {
     // Serve the CSS file
     http.Handle("/static/dashboard.css", uicss.CSSHandler())
     
+    // Optional: Serve readable CSS for development
+    http.Handle("/static/dashboard.readable.css", uicss.ReadableCSSHandler())
+    
     // Serve the interactive stylebook
     http.Handle("/stylebook", uicss.StylebookHandler())
     
@@ -87,11 +90,17 @@ In your HTML:
 ### `uicss.CSSHandler() http.Handler`
 Returns an HTTP handler that serves the compiled CSS file with appropriate caching headers.
 
+### `uicss.ReadableCSSHandler() http.Handler`
+Returns an HTTP handler that serves a non-minified, readable version of the CSS for development and debugging.
+
 ### `uicss.StylebookHandler() http.Handler`
 Returns an HTTP handler that serves an interactive stylebook showcasing all available components and styles.
 
 ### `uicss.CSS() string`
 Returns the raw CSS as a string for inline embedding or custom processing.
+
+### `uicss.ReadableCSS() string`
+Returns the non-minified CSS as a string for development environments.
 
 ## Type-Safe CSS Variables (op package)
 

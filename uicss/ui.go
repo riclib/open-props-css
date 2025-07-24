@@ -9,6 +9,9 @@ import (
 //go:embed dashboard.css
 var dashboardCSS string
 
+//go:embed dashboard.readable.css
+var dashboardReadableCSS string
+
 //go:embed stylebook.html
 var stylebookHTML string
 
@@ -17,12 +20,26 @@ func CSS() string {
 	return dashboardCSS
 }
 
+// ReadableCSS returns the non-minified CSS as a string
+func ReadableCSS() string {
+	return dashboardReadableCSS
+}
+
 // CSSHandler returns an http.Handler that serves the dashboard.css file
 func CSSHandler() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "text/css")
 		w.Header().Set("Cache-Control", "public, max-age=3600")
 		w.Write([]byte(dashboardCSS))
+	})
+}
+
+// ReadableCSSHandler returns an http.Handler that serves the readable CSS file
+func ReadableCSSHandler() http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "text/css")
+		w.Header().Set("Cache-Control", "public, max-age=3600")
+		w.Write([]byte(dashboardReadableCSS))
 	})
 }
 

@@ -4,3 +4,5 @@ github.com/google/go-cmp v0.6.0 h1:ofyhxvXcZhMsU5ulbFiLKl/XBFqE1GSq7atu8tAmTRI=
 github.com/google/go-cmp v0.6.0/go.mod h1:17dUlkBOakJ0+DkrSSNjCkIjxS6bF9zb3elmeNGIjoY=
 github.com/riclib/open-props-css v0.2.0 h1:Dk0VAav9gTk3f4TinM+P0g4vo8aTo9Ej78G36wCt2fE=
 github.com/riclib/open-props-css v0.2.0/go.mod h1:H56mW2NAQp63xL4mkgHMU9GxK0BQv3lWGvBaWPsOGhA=
+github.com/riclib/open-props-css v0.3.0 h1:5jo3UH0hQLWXuLDu1dnnzPLPfE2HspPmlIMTu1C4Ldc=
+github.com/riclib/open-props-css v0.3.0/go.mod h1:gcaDXwtjsO+ZvRjGYvpBQHwYv3zQZDIwkg7UpY1V1dg=

@@ -11,6 +11,7 @@ import (
 func main() {
 	// Serve the CSS
 	http.Handle("/static/dashboard.css", uicss.CSSHandler())
+	http.Handle("/static/dashboard.readable.css", uicss.ReadableCSSHandler())
 
 	// Routes
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
