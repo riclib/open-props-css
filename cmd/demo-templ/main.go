@@ -29,11 +29,16 @@ func main() {
 		AnimationsPage().Render(r.Context(), w)
 	})
 
+	http.HandleFunc("/icons", func(w http.ResponseWriter, r *http.Request) {
+		IconsPage().Render(r.Context(), w)
+	})
+
 	fmt.Println("Op Package Demo running at http://localhost:8081")
 	fmt.Println("- Components: http://localhost:8081/")
 	fmt.Println("- Colors: http://localhost:8081/colors")
 	fmt.Println("- Spacing: http://localhost:8081/spacing")
 	fmt.Println("- Animations: http://localhost:8081/animations")
+	fmt.Println("- Icons: http://localhost:8081/icons")
 
 	log.Fatal(http.ListenAndServe(":8081", nil))
 }

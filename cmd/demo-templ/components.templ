@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/riclib/open-props-css/op"
+	"github.com/riclib/open-props-css/icon"
 )
 
 // Layout wraps the entire page
@@ -23,6 +24,7 @@ templ Layout(title string) {
 					<li><a href="/colors">Colors</a></li>
 					<li><a href="/spacing">Spacing</a></li>
 					<li><a href="/animations">Animations</a></li>
+					<li><a href="/icons">Icons</a></li>
 				</ul>
 			</nav>
 			<main>
@@ -436,4 +438,104 @@ templ AnimationsPage() {
 			</div>
 		</div>
 	}
+}
+
+// IconsPage shows icon examples
+templ IconsPage() {
+	@Layout("Icons - Op Package Demo") {
+		<header>
+			<h2>Lucide Icons</h2>
+			<p>Type-safe icons integrated with Open Props</p>
+		</header>
+		<div class="card mb-4">
+			<h3>Basic Usage</h3>
+			<div class="flex gap-4 items-center mb-3">
+				@icon.Icon(icon.IconHome, templ.Attributes{"style": op.NewStyle().Color(op.Color.Blue(6)).Custom("width", op.Size(6)).Custom("height", op.Size(6)).String()})
+				@icon.Icon(icon.IconHeart, templ.Attributes{"style": op.NewStyle().Color(op.Color.Red(6)).Custom("width", op.Size(6)).Custom("height", op.Size(6)).String()})
+				@icon.Icon(icon.IconStar, templ.Attributes{"style": op.NewStyle().Color(op.Color.Yellow(6)).Custom("width", op.Size(6)).Custom("height", op.Size(6)).String()})
+				@icon.Icon(icon.IconCheck, templ.Attributes{"style": op.NewStyle().Color(op.Color.Green(6)).Custom("width", op.Size(6)).Custom("height", op.Size(6)).String()})
+			</div>
+			<pre style={ codeBlockStyle() }>{ iconBasicExampleCode() }</pre>
+		</div>
+		<div class="card mb-4">
+			<h3>Icon Buttons</h3>
+			<div class="flex gap-2 flex-wrap">
+				@IconButton(icon.IconDownload, "Download", "primary")
+				@IconButton(icon.IconShare2, "Share", "secondary")
+				@IconButton(icon.IconTrash2, "Delete", "danger")
+				@IconButton(icon.IconEdit, "Edit", "success")
+			</div>
+		</div>
+		<div class="card mb-4">
+			<h3>Navigation Icons</h3>
+			<div class="grid grid-cols-8 gap-2">
+				for _, iconName := range icon.NavigationIcons()[:16] {
+					<div class="text-center p-2 hover:bg-gray-100 rounded" style={ op.NewStyle().Background(op.Color.Surface()).BorderRadius(op.Radius(2)).String() }>
+						@icon.Icon(iconName, templ.Attributes{"style": op.NewStyle().Custom("width", op.Size(5)).Custom("height", op.Size(5)).Custom("margin", "0 auto").String()})
+						<p class="text-xs mt-1">{ string(iconName) }</p>
+					</div>
+				}
+			</div>
+		</div>
+		<div class="card">
+			<h3>Icon Search</h3>
+			<div class="mb-4">
+				<input type="text" id="icon-search" placeholder="Search icons..." oninput="searchIcons(this.value)"/>
+			</div>
+			<div id="search-results" class="grid grid-cols-8 gap-2">
+				@ShowSearchResults("home")
+			</div>
+		</div>
+		<script>
+			function searchIcons(query) {
+				// In a real app, this would make an AJAX request
+				console.log('Searching for:', query);
+			}
+		</script>
+	}
+}
+
+templ IconButton(iconName icon.IconName, label string, variant string) {
+	<button style={ buttonStyle(variant, 3) } class="flex items-center gap-2">
+		@icon.Icon(iconName, templ.Attributes{"style": "width: 1rem; height: 1rem;"})
+		<span>{ label }</span>
+	</button>
+}
+
+templ ShowSearchResults(query string) {
+	for _, result := range getSearchResults(query) {
+		<div class="text-center p-2 hover:bg-gray-100 rounded" style={ op.NewStyle().Background(op.Color.Surface()).BorderRadius(op.Radius(2)).String() }>
+			@icon.Icon(result.IconName, templ.Attributes{"style": op.NewStyle().Custom("width", op.Size(5)).Custom("height", op.Size(5)).Custom("margin", "0 auto").String()})
+			<p class="text-xs mt-1">{ string(result.IconName) }</p>
+		</div>
+	}
+}
+
+func getSearchResults(query string) []icon.SearchResult {
+	search := icon.NewIconSearch()
+	results := search.Search(query)
+	if len(results) > 16 {
+		return results[:16]
+	}
+	return results
+}
+
+func iconBasicExampleCode() string {
+	return `// Import the icon package
+import "github.com/riclib/open-props-css/icon"
+
+// Basic usage with type-safe constants
+@icon.Icon(icon.IconHome, templ.Attributes{
+    "style": op.NewStyle().
+        Color(op.Color.Blue(6)).
+        Custom("width", op.Size(6)).
+        Custom("height", op.Size(6)).
+        String(),
+})
+
+// Direct component usage
+@icon.Home(templ.Attributes{"class": "w-6 h-6"})
+
+// Icon button component
+@IconButton(icon.IconDownload, "Download", "primary")`
 }

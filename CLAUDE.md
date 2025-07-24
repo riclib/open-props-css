@@ -101,4 +101,26 @@ style := op.NewStyle().
     String()
 ```
 
+### Icons (Lucide)
+Type-safe Lucide icons with 1600+ icons:
+```go
+import "github.com/riclib/open-props-css/icon"
+
+// Type-safe icon usage
+@icon.Icon(icon.IconHome, templ.Attributes{"class": "w-6 h-6"})
+@icon.Icon(icon.IconHeart, templ.Attributes{
+    "style": fmt.Sprintf("color: %s; width: %s;", op.Color.Red(6), op.Size(5)),
+})
+
+// Direct component
+@icon.Home(templ.Attributes{"class": "w-6 h-6"})
+
+// Category access
+icons := icon.NavigationIcons() // Returns []IconName
+
+// Search functionality
+search := icon.NewIconSearch()
+results := search.Search("arrow") // Returns []SearchResult with relevance
+```
+
 For full details, see CSSREF.md
