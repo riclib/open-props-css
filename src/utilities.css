@@ -127,3 +127,41 @@
   white-space: nowrap;
   border-width: 0;
 }
+
+/* Icon utilities */
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.125em;
+  line-height: 1;
+}
+
+.icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Icon size variants */
+.icon-xs { width: var(--font-size-0); height: var(--font-size-0); }
+.icon-sm { width: 0.875em; height: 0.875em; }
+.icon-lg { width: 1.25em; height: 1.25em; }
+.icon-xl { width: var(--font-size-3); height: var(--font-size-3); }
+.icon-2xl { width: var(--font-size-4); height: var(--font-size-4); }
+
+/* Icon spacing helpers */
+.icon-left { margin-right: var(--size-1); }
+.icon-right { margin-left: var(--size-1); }
+
+/* Icon style variants */
+.icon-fill svg {
+  fill: currentColor;
+  stroke: none;
+}
+
+/* Icon animations */
+.icon-spin { animation: var(--animation-spin); }
+.icon-pulse { animation: var(--animation-pulse); }
+.icon-bounce { animation: var(--animation-bounce); }
