@@ -119,7 +119,7 @@ import "github.com/riclib/open-props-css/icon"
 icons := icon.NavigationIcons() // Returns []IconName
 
 // Search functionality
-search := icon.NewIconSearch()
+search := icon.NewSearch()
 results := search.Search("arrow") // Returns []SearchResult with relevance
 ```
 

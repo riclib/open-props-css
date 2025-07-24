@@ -6,3 +6,5 @@ github.com/riclib/open-props-css v0.1.0 h1:1a1Qk6COxfEzStwhN1U97y19rzNEwIOJRU40I
 github.com/riclib/open-props-css v0.1.0/go.mod h1:H56mW2NAQp63xL4mkgHMU9GxK0BQv3lWGvBaWPsOGhA=
 github.com/riclib/open-props-css v0.1.1-0.20250724081251-0a98aadb87ab h1:Lf3SHCWY2iLCoSShOe6t/dpwjr1jNexZ69BeVRrYZgk=
 github.com/riclib/open-props-css v0.1.1-0.20250724081251-0a98aadb87ab/go.mod h1:H56mW2NAQp63xL4mkgHMU9GxK0BQv3lWGvBaWPsOGhA=
+github.com/riclib/open-props-css v0.1.1-0.20250724081808-271bf22bee0b h1:0yWPuGlgYr9m3l5mPq8N4k9x1Afg55o04fRjBZRJKOA=
+github.com/riclib/open-props-css v0.1.1-0.20250724081808-271bf22bee0b/go.mod h1:H56mW2NAQp63xL4mkgHMU9GxK0BQv3lWGvBaWPsOGhA=

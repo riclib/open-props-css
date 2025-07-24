@@ -93,25 +93,25 @@ type SearchResult struct {
 	MatchType string // "exact", "tag", "category", "partial"
 }
 
-// IconSearch provides search and filter functionality for icons
-type IconSearch struct {
-	icons []IconSearchData
+// Search provides search and filter functionality for icons
+type Search struct {
+	icons []SearchData
 	tagIndex map[string][]IconName
 	categoryIndex map[string][]IconName
 }
 
-// IconSearchData contains searchable metadata for an icon
-type IconSearchData struct {
+// SearchData contains searchable metadata for an icon
+type SearchData struct {
 	Name       IconName
 	Tags       []string
 	Categories []string
 	AllText    string // Pre-computed search text for efficiency
 }
 
-// NewIconSearch creates a new search instance with precomputed indexes
-func NewIconSearch() *IconSearch {
-	search := &IconSearch{
-		icons: []IconSearchData{
+// NewSearch creates a new search instance with precomputed indexes
+func NewSearch() *Search {
+	search := &Search{
+		icons: []SearchData{
 {{range .Icons}}			{
 				Name:       {{call $.ToConstantName .Name $.Prefix}},
 				Tags:       []string{{"{"}}{{range .Tags}}"{{.}}", {{end}}{{"}"}},
@@ -128,7 +128,7 @@ func NewIconSearch() *IconSearch {
 }
 
 // buildIndexes creates lookup indexes for faster searching
-func (s *IconSearch) buildIndexes() {
+func (s *Search) buildIndexes() {
 	for _, icon := range s.icons {
 		// Build tag index
 		for _, tag := range icon.Tags {
@@ -145,7 +145,7 @@ func (s *IconSearch) buildIndexes() {
 }
 
 // Search performs incremental search across icon names, tags, and categories
-func (s *IconSearch) Search(query string) []SearchResult {
+func (s *Search) Search(query string) []SearchResult {
 	if query == "" {
 		return s.getAllIcons()
 	}
@@ -217,7 +217,7 @@ func (s *IconSearch) Search(query string) []SearchResult {
 }
 
 // SearchByCategory returns all icons in a specific category
-func (s *IconSearch) SearchByCategory(category string) []IconName {
+func (s *Search) SearchByCategory(category string) []IconName {
 	if icons, exists := s.categoryIndex[strings.ToLower(category)]; exists {
 		result := make([]IconName, len(icons))
 		copy(result, icons)
@@ -227,7 +227,7 @@ func (s *IconSearch) SearchByCategory(category string) []IconName {
 }
 
 // SearchByTag returns all icons with a specific tag
-func (s *IconSearch) SearchByTag(tag string) []IconName {
+func (s *Search) SearchByTag(tag string) []IconName {
 	if icons, exists := s.tagIndex[strings.ToLower(tag)]; exists {
 		result := make([]IconName, len(icons))
 		copy(result, icons)
@@ -237,7 +237,7 @@ func (s *IconSearch) SearchByTag(tag string) []IconName {
 }
 
 // GetAllTags returns all available tags sorted alphabetically
-func (s *IconSearch) GetAllTags() []string {
+func (s *Search) GetAllTags() []string {
 	tags := make([]string, 0, len(s.tagIndex))
 	for tag := range s.tagIndex {
 		tags = append(tags, tag)
@@ -247,7 +247,7 @@ func (s *IconSearch) GetAllTags() []string {
 }
 
 // GetAllCategories returns all available categories sorted alphabetically
-func (s *IconSearch) GetAllCategories() []string {
+func (s *Search) GetAllCategories() []string {
 	categories := make([]string, 0, len(s.categoryIndex))
 	for category := range s.categoryIndex {
 		categories = append(categories, category)
@@ -257,7 +257,7 @@ func (s *IconSearch) GetAllCategories() []string {
 }
 
 // GetTagsForIcon returns all tags for a specific icon
-func (s *IconSearch) GetTagsForIcon(iconName IconName) []string {
+func (s *Search) GetTagsForIcon(iconName IconName) []string {
 	for _, icon := range s.icons {
 		if icon.Name == iconName {
 			result := make([]string, len(icon.Tags))
@@ -269,7 +269,7 @@ func (s *IconSearch) GetTagsForIcon(iconName IconName) []string {
 }
 
 // GetCategoriesForIcon returns all categories for a specific icon
-func (s *IconSearch) GetCategoriesForIcon(iconName IconName) []string {
+func (s *Search) GetCategoriesForIcon(iconName IconName) []string {
 	for _, icon := range s.icons {
 		if icon.Name == iconName {
 			result := make([]string, len(icon.Categories))
@@ -281,12 +281,12 @@ func (s *IconSearch) GetCategoriesForIcon(iconName IconName) []string {
 }
 
 // GetIconCount returns the total number of searchable icons
-func (s *IconSearch) GetIconCount() int {
+func (s *Search) GetIconCount() int {
 	return len(s.icons)
 }
 
 // calculatePartialRelevance calculates relevance score for partial matches
-func (s *IconSearch) calculatePartialRelevance(icon IconSearchData, query string) int {
+func (s *Search) calculatePartialRelevance(icon SearchData, query string) int {
 	iconName := strings.ToLower(string(icon.Name))
 	
 	// Name starts with query - high relevance
@@ -324,7 +324,7 @@ func (s *IconSearch) calculatePartialRelevance(icon IconSearchData, query string
 }
 
 // getAllIcons returns all icons with default relevance
-func (s *IconSearch) getAllIcons() []SearchResult {
+func (s *Search) getAllIcons() []SearchResult {
 	results := make([]SearchResult, len(s.icons))
 	for i, icon := range s.icons {
 		results[i] = SearchResult{
@@ -345,7 +345,7 @@ type SearchOptions struct {
 }
 
 // SearchWithOptions performs search with additional filtering options
-func (s *IconSearch) SearchWithOptions(query string, options SearchOptions) []SearchResult {
+func (s *Search) SearchWithOptions(query string, options SearchOptions) []SearchResult {
 	results := s.Search(query)
 	
 	// Apply category filter

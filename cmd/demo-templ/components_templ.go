@@ -1552,7 +1552,7 @@ func ShowSearchResults(query string) templ.Component {
 }
 
 func getSearchResults(query string) []icon.SearchResult {
-	search := icon.NewIconSearch()
+	search := icon.NewSearch()
 	results := search.Search(query)
 	if len(results) > 16 {
 		return results[:16]
