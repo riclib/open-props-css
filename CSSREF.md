@@ -490,23 +490,46 @@ op.Color.PrimaryHover()  // "var(--primary-hover)"
 
 ### Sizes and Spacing
 ```go
-// Size scale 1-15 (plus 00, 000)
+// Size scale -2 to 15
 op.Size(4)         // "var(--size-4)"
 op.Size(-1)        // "var(--size-00)"
 op.Size(-2)        // "var(--size-000)"
+op.Size(15)        // "var(--size-15)"
 
-// Pixel-based sizes
+// Pixel-based sizes -2 to 15
 op.SizePx(10)      // "var(--size-px-10)"
+op.SizePx(-1)      // "var(--size-px-00)"
 
-// Relative sizes
+// Relative sizes 0-15
 op.SizeRelative(5) // "var(--size-relative-5)"
 
-// Content sizes
-op.SizeContent(2)  // "var(--size-content-2)"
-op.SizeHeader(3)   // "var(--size-header-3)"
+// Content sizes 1-3
+op.SizeContent(1)  // "var(--size-content-1)" = 20ch
+op.SizeContent(2)  // "var(--size-content-2)" = 45ch
+op.SizeContent(3)  // "var(--size-content-3)" = 60ch
 
-// Fluid sizes
+// Header sizes 1-3
+op.SizeHeader(1)   // "var(--size-header-1)" = 20ch
+op.SizeHeader(2)   // "var(--size-header-2)" = 25ch
+op.SizeHeader(3)   // "var(--size-header-3)" = 35ch
+
+// Fluid sizes 0-10
+op.SizeFluid(0)    // "var(--size-fluid-0)"
 op.SizeFluid(4)    // "var(--size-fluid-4)"
+op.SizeFluid(10)   // "var(--size-fluid-10)"
+
+// Layer/z-index values 1-5
+op.Layer(1)        // "var(--layer-1)"
+op.Layer(5)        // "var(--layer-5)"
+op.LayerImportant() // "var(--layer-important)"
+
+// Aspect ratios
+op.Ratio("square")     // "var(--ratio-square)" = 1
+op.Ratio("landscape")  // "var(--ratio-landscape)" = 4/3
+op.Ratio("portrait")   // "var(--ratio-portrait)" = 3/4
+op.Ratio("widescreen") // "var(--ratio-widescreen)" = 16/9
+op.Ratio("ultrawide")  // "var(--ratio-ultrawide)" = 18/5
+op.Ratio("golden")     // "var(--ratio-golden)" = 1.618
 ```
 
 ### Typography
@@ -515,19 +538,41 @@ op.SizeFluid(4)    // "var(--size-fluid-4)"
 op.Font.Size(3)           // "var(--font-size-3)"
 op.Font.SizeFluid(2)      // "var(--font-size-fluid-2)"
 
-// Font weights 1-9
-op.Font.Weight(6)         // "var(--font-weight-6)"
+// Font weights 1-9 (100-900)
+op.Font.Weight(1)         // "var(--font-weight-1)" = 100
+op.Font.Weight(4)         // "var(--font-weight-4)" = 400 (normal)
+op.Font.Weight(6)         // "var(--font-weight-6)" = 600 (semibold)
+op.Font.Weight(7)         // "var(--font-weight-7)" = 700 (bold)
+op.Font.Weight(9)         // "var(--font-weight-9)" = 900 (black)
 
 // Line heights 0-5
+op.Font.LineHeight(0)     // "var(--font-lineheight-00)"
 op.Font.LineHeight(3)     // "var(--font-lineheight-3)"
 
 // Letter spacing 0-7
 op.Font.LetterSpacing(2)  // "var(--font-letterspacing-2)"
 
-// Font families
+// Generic font families
 op.Font.Sans()            // "var(--font-sans)"
 op.Font.Serif()           // "var(--font-serif)"
 op.Font.Mono()            // "var(--font-mono)"
+
+// Specific font family stacks
+op.Font.SystemUI()        // "var(--font-system-ui)"
+op.Font.Transitional()    // "var(--font-transitional)"
+op.Font.OldStyle()        // "var(--font-old-style)"
+op.Font.Humanist()        // "var(--font-humanist)"
+op.Font.GeometricHumanist() // "var(--font-geometric-humanist)"
+op.Font.ClassicalHumanist() // "var(--font-classical-humanist)"
+op.Font.NeoGrotesque()    // "var(--font-neo-grotesque)"
+op.Font.MonospaceSlab()   // "var(--font-monospace-slab-serif)"
+op.Font.MonospaceCode()   // "var(--font-monospace-code)"
+op.Font.Industrial()      // "var(--font-industrial)"
+op.Font.RoundedSans()     // "var(--font-rounded-sans)"
+op.Font.SlabSerif()       // "var(--font-slab-serif)"
+op.Font.Antique()         // "var(--font-antique)"
+op.Font.Didone()          // "var(--font-didone)"
+op.Font.Handwritten()     // "var(--font-handwritten)"
 ```
 
 ### Borders and Radius
@@ -546,8 +591,9 @@ op.RadiusConditional(4)   // "var(--radius-conditional-4)"
 ```go
 // Shadow scale 1-6
 op.Shadow(3)       // "var(--shadow-3)"
-op.ShadowColor(4)  // "var(--shadow-color-4)"
-op.ShadowStrength(50) // "var(--shadow-strength-50)"
+
+// Inner shadows 0-4
+op.InnerShadow(2)  // "var(--inner-shadow-2)"
 ```
 
 ### Gradients
@@ -558,61 +604,147 @@ op.Gradient(7)     // "var(--gradient-7)"
 
 ### Animations
 ```go
-// Animation presets
+// Fade animations
 op.Animation.FadeIn()        // "var(--animation-fade-in)"
+op.Animation.FadeInBloom()   // "var(--animation-fade-in-bloom)"
 op.Animation.FadeOut()       // "var(--animation-fade-out)"
+op.Animation.FadeOutBloom()  // "var(--animation-fade-out-bloom)"
+
+// Scale animations
 op.Animation.ScaleUp()       // "var(--animation-scale-up)"
 op.Animation.ScaleDown()     // "var(--animation-scale-down)"
+
+// Slide animations (in and out for all directions)
 op.Animation.SlideInUp()     // "var(--animation-slide-in-up)"
 op.Animation.SlideInDown()   // "var(--animation-slide-in-down)"
 op.Animation.SlideInLeft()   // "var(--animation-slide-in-left)"
 op.Animation.SlideInRight()  // "var(--animation-slide-in-right)"
+op.Animation.SlideOutUp()    // "var(--animation-slide-out-up)"
+op.Animation.SlideOutDown()  // "var(--animation-slide-out-down)"
+op.Animation.SlideOutLeft()  // "var(--animation-slide-out-left)"
+op.Animation.SlideOutRight() // "var(--animation-slide-out-right)"
+
+// Shake animations
+op.Animation.ShakeX()        // "var(--animation-shake-x)"
+op.Animation.ShakeY()        // "var(--animation-shake-y)"
+op.Animation.ShakeZ()        // "var(--animation-shake-z)"
+
+// Other animations
+op.Animation.Spin()          // "var(--animation-spin)"
+op.Animation.Ping()          // "var(--animation-ping)"
+op.Animation.Blink()         // "var(--animation-blink)"
+op.Animation.Float()         // "var(--animation-float)"
 op.Animation.Bounce()        // "var(--animation-bounce)"
 op.Animation.Pulse()         // "var(--animation-pulse)"
-op.Animation.Spin()          // "var(--animation-spin)"
-// ... and many more
 ```
 
 ### Easing Functions
 ```go
 // Basic easing 1-5
-op.Ease.Default(3)     // "var(--ease-3)"
-op.Ease.In(2)          // "var(--ease-in-2)"
-op.Ease.Out(4)         // "var(--ease-out-4)"
-op.Ease.InOut(3)       // "var(--ease-in-out-3)"
+op.Ease.Default(3)        // "var(--ease-3)"
+op.Ease.In(2)             // "var(--ease-in-2)"
+op.Ease.Out(4)            // "var(--ease-out-4)"
+op.Ease.InOut(3)          // "var(--ease-in-out-3)"
 
-// Elastic easing
-op.Ease.Elastic(2)     // "var(--ease-elastic-2)"
-op.Ease.Squish(3)      // "var(--ease-squish-3)"
-op.Ease.Spring(4)      // "var(--ease-spring-4)"
+// Elastic easing 1-5
+op.Ease.Elastic(2)        // "var(--ease-elastic-2)"
+op.Ease.ElasticIn(1)      // "var(--ease-elastic-in-1)"
+op.Ease.ElasticOut(3)     // "var(--ease-elastic-out-3)"
+op.Ease.ElasticInOut(4)   // "var(--ease-elastic-in-out-4)"
 
-// Named easing
-op.Ease.CircIn()       // "var(--ease-circ-in)"
-op.Ease.CubicInOut()   // "var(--ease-cubic-in-out)"
-op.Ease.ExpoOut()      // "var(--ease-expo-out)"
+// Special easing 1-5
+op.Ease.Squish(3)         // "var(--ease-squish-3)"
+op.Ease.Spring(4)         // "var(--ease-spring-4)"
+op.Ease.Bounce(2)         // "var(--ease-bounce-2)"
+op.Ease.Step(5)           // "var(--ease-step-5)"
+
+// Named easing functions
+op.Ease.CircIn()          // "var(--ease-circ-in)"
+op.Ease.CircOut()         // "var(--ease-circ-out)"
+op.Ease.CircInOut()       // "var(--ease-circ-in-out)"
+op.Ease.CubicIn()         // "var(--ease-cubic-in)"
+op.Ease.CubicOut()        // "var(--ease-cubic-out)"
+op.Ease.CubicInOut()      // "var(--ease-cubic-in-out)"
+op.Ease.ExpoIn()          // "var(--ease-expo-in)"
+op.Ease.ExpoOut()         // "var(--ease-expo-out)"
+op.Ease.ExpoInOut()       // "var(--ease-expo-in-out)"
+op.Ease.QuadIn()          // "var(--ease-quad-in)"
+op.Ease.QuadOut()         // "var(--ease-quad-out)"
+op.Ease.QuadInOut()       // "var(--ease-quad-in-out)"
+op.Ease.QuartIn()         // "var(--ease-quart-in)"
+op.Ease.QuartOut()        // "var(--ease-quart-out)"
+op.Ease.QuartInOut()      // "var(--ease-quart-in-out)"
+op.Ease.QuintIn()         // "var(--ease-quint-in)"
+op.Ease.QuintOut()        // "var(--ease-quint-out)"
+op.Ease.QuintInOut()      // "var(--ease-quint-in-out)"
+op.Ease.SineIn()          // "var(--ease-sine-in)"
+op.Ease.SineOut()         // "var(--ease-sine-out)"
+op.Ease.SineInOut()       // "var(--ease-sine-in-out)"
 ```
 
 ### Style Builder
 The style builder provides a fluent interface for creating inline styles:
 ```go
 style := op.NewStyle().
+    // Colors and backgrounds
     Background(op.Gradient(15)).
     Color(op.Color.Blue(9)).
+    
+    // Spacing - general and specific
     Padding(op.Size(4)).
     PaddingTop(op.Size(6)).
+    PaddingBottom(op.Size(4)).
+    PaddingLeft(op.Size(3)).
+    PaddingRight(op.Size(3)).
     Margin(op.Size(2)).
+    MarginTop(op.Size(4)).
+    MarginBottom(op.Size(4)).
+    MarginLeft("auto").
+    MarginRight("auto").
+    
+    // Visual effects
     BorderRadius(op.Radius(3)).
     BoxShadow(op.Shadow(4)).
+    
+    // Typography
     FontSize(op.Font.Size(3)).
     FontWeight(op.Font.Weight(6)).
+    
+    // Animations and transitions
     Animation(op.Animation.FadeIn()).
-    TransitionProperty("all").
-    TransitionDuration("200ms").
+    Transition("all 200ms ease").
+    TransitionProperty("transform").
+    TransitionDuration("300ms").
     TransitionTimingFunction(op.Ease.Out(3)).
+    
+    // Custom CSS properties
+    Custom("gap", op.Size(3)).
+    Custom("grid-template-columns", "1fr 2fr").
+    
+    // Generate the CSS string
     String()
 
-// Result: "background: var(--gradient-15); color: var(--blue-9); ..."
+// Result: "background: var(--gradient-15); color: var(--blue-9); padding: var(--size-4); ..."
 ```
+
+#### Available Style Builder Methods
+- `Background(value)` - Set background
+- `Color(value)` - Set text color
+- `Padding(value)` - Set all padding
+- `PaddingTop(value)`, `PaddingBottom(value)`, `PaddingLeft(value)`, `PaddingRight(value)` - Set specific padding
+- `Margin(value)` - Set all margins
+- `MarginTop(value)`, `MarginBottom(value)`, `MarginLeft(value)`, `MarginRight(value)` - Set specific margins
+- `BorderRadius(value)` - Set border radius
+- `BoxShadow(value)` - Set box shadow
+- `FontSize(value)` - Set font size
+- `FontWeight(value)` - Set font weight
+- `Animation(value)` - Set animation
+- `Transition(value)` - Set transition shorthand
+- `TransitionProperty(value)` - Set transition property
+- `TransitionDuration(value)` - Set transition duration
+- `TransitionTimingFunction(value)` - Set transition timing function
+- `Custom(property, value)` - Set any custom CSS property
+- `String()` - Generate the final CSS string
 
 ### Practical Examples
 
@@ -667,6 +799,79 @@ func ResponsiveSection() string {
         Margin("0 auto").
         String()
 }
+```
+
+### Constants
+
+The op package provides useful constants for common values:
+
+#### Size Constants
+```go
+// Common sizes
+op.SizeXS  = 1   // 0.25rem
+op.SizeSM  = 2   // 0.5rem
+op.SizeMD  = 3   // 1rem
+op.SizeLG  = 4   // 1.25rem
+op.SizeXL  = 5   // 1.5rem
+op.Size2XL = 6   // 1.75rem
+op.Size3XL = 7   // 2rem
+op.Size4XL = 8   // 3rem
+op.Size5XL = 9   // 4rem
+op.Size6XL = 10  // 5rem
+```
+
+#### Color Scale Constants
+```go
+op.ColorScaleLightest = 0
+op.ColorScaleLight    = 3
+op.ColorScaleMedium   = 6
+op.ColorScaleDark     = 9
+op.ColorScaleDarkest  = 12
+```
+
+#### Font Size Constants
+```go
+op.FontSizeXS  = 0  // 0.75rem
+op.FontSizeSM  = 1  // 1rem
+op.FontSizeMD  = 2  // 1.1rem
+op.FontSizeLG  = 3  // 1.25rem
+op.FontSizeXL  = 4  // 1.5rem
+op.FontSize2XL = 5  // 2rem
+op.FontSize3XL = 6  // 2.5rem
+op.FontSize4XL = 7  // 3rem
+op.FontSize5XL = 8  // 3.5rem
+```
+
+#### Font Weight Constants
+```go
+op.FontWeightThin       = 1  // 100
+op.FontWeightExtraLight = 2  // 200
+op.FontWeightLight      = 3  // 300
+op.FontWeightNormal     = 4  // 400
+op.FontWeightMedium     = 5  // 500
+op.FontWeightSemiBold   = 6  // 600
+op.FontWeightBold       = 7  // 700
+op.FontWeightExtraBold  = 8  // 800
+op.FontWeightBlack      = 9  // 900
+```
+
+#### Border Size Constants
+```go
+op.BorderSizeThin    = 1  // 1px
+op.BorderSizeDefault = 2  // 2px
+op.BorderSizeMedium  = 3  // 5px
+op.BorderSizeThick   = 4  // 10px
+op.BorderSizeHeavy   = 5  // 25px
+```
+
+#### Radius Constants
+```go
+op.RadiusXS  = 1  // 2px
+op.RadiusSM  = 2  // 5px
+op.RadiusMD  = 3  // 1rem
+op.RadiusLG  = 4  // 2rem
+op.RadiusXL  = 5  // 4rem
+op.Radius2XL = 6  // 8rem
 ```
 
 ## Best Practices

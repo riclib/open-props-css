@@ -80,9 +80,9 @@ templ ColorScale(name string, colorFunc func(int) string) {
 		<h3>{ name }</h3>
 		<div class="grid grid-cols-13 gap-1">
 			for i := 0; i <= 12; i++ {
-				<div 
-					style={ fmt.Sprintf("background: %s; height: 60px; border-radius: %s; display: flex; align-items: center; justify-content: center; color: %s", 
-						colorFunc(i), 
+				<div
+					style={ fmt.Sprintf("background: %s; height: 60px; border-radius: %s; display: flex; align-items: center; justify-content: center; color: %s",
+						colorFunc(i),
 						op.Radius(1),
 						textColorForBackground(i)) }
 				>
@@ -126,10 +126,10 @@ templ SpacingVisualizer() {
 templ SpacingItem(size int, label string) {
 	<div class="flex items-center gap-3">
 		<span class="text-muted" style="width: 3rem">Size { label }:</span>
-		<div 
-			style={ fmt.Sprintf("background: %s; width: %s; height: %s", 
-				op.Gradient(12), 
-				op.Size(size), 
+		<div
+			style={ fmt.Sprintf("background: %s; width: %s; height: %s",
+				op.Gradient(12),
+				op.Size(size),
 				op.Size(3)) }
 		></div>
 		<span class="text-small text-muted">{ op.Size(size) }</span>
@@ -143,16 +143,7 @@ templ StyleBuilderExample() {
 		<div class="grid grid-cols-2 gap-4">
 			<div>
 				<h4>Code:</h4>
-				<pre style={ codeBlockStyle() }>style := op.NewStyle().
-    Background(op.Gradient(15)).
-    Color(op.Color.Blue(9)).
-    Padding(op.Size(4)).
-    PaddingTop(op.Size(6)).
-    BorderRadius(op.Radius(3)).
-    BoxShadow(op.Shadow(4)).
-    FontSize(op.Font.Size(3)).
-    Animation(op.Animation.FadeIn()).
-    String()</pre>
+				<pre style={ codeBlockStyle() }>{ styleBuilderCode() }</pre>
 			</div>
 			<div>
 				<h4>Result:</h4>
@@ -177,6 +168,19 @@ func exampleStyle() string {
 		String()
 }
 
+func styleBuilderCode() string {
+	return `style := op.NewStyle().
+	Background(op.Gradient(15)).
+	Color(op.Color.Blue(9)).
+	Padding(op.Size(4)).
+	PaddingTop(op.Size(6)).
+	BorderRadius(op.Radius(3)).
+	BoxShadow(op.Shadow(4)).
+	FontSize(op.Font.Size(3)).
+	Animation(op.Animation.FadeIn()).
+	String()`
+}
+
 func codeBlockStyle() string {
 	return op.NewStyle().
 		Background(op.Color.Gray(11)).
@@ -198,7 +202,6 @@ templ HomePage() {
 			<h2>Component Examples</h2>
 			<p>Using the op package for type-safe styling</p>
 		</header>
-
 		<section class="mb-4">
 			<h3>Dynamic Buttons</h3>
 			<div class="flex gap-2 flex-wrap mb-3">
@@ -209,22 +212,10 @@ templ HomePage() {
 			</div>
 			<details>
 				<summary>View Code</summary>
-				<pre style={ codeBlockStyle() }>// Button with dynamic variant and size
-@DynamicButton("Button Text", "primary", 3)
-
-// Implementation
-style := op.NewStyle().
-    Padding(op.Size(size)).
-    BorderRadius(op.Radius(2)).
-    FontWeight(op.Font.Weight(6)).
-    Background(op.Color.Primary()).
-    Color("white").
-    String()</pre>
+				<pre style={ codeBlockStyle() }>{ buttonExampleCode() }</pre>
 			</details>
 		</section>
-
 		@StyleBuilderExample()
-
 		<section class="mt-4">
 			<h3>Theme-Aware Cards</h3>
 			<div class="grid grid-cols-2 gap-4">
@@ -256,6 +247,72 @@ func cardStyle(elevated bool) string {
 	return style.String()
 }
 
+func buttonExampleCode() string {
+	return `// Button with dynamic variant and size
+@DynamicButton("Button Text", "primary", 3)
+
+// Implementation
+style := op.NewStyle().
+	Padding(op.Size(size)).
+	BorderRadius(op.Radius(2)).
+	FontWeight(op.Font.Weight(6)).
+	Background(op.Color.Primary()).
+	Color("white").
+	String()`
+}
+
+func colorExampleCode() string {
+	return `// Access any color with scale 0-12
+backgroundColor := op.Color.Blue(1)    // Light blue
+textColor := op.Color.Blue(11)        // Dark blue
+borderColor := op.Color.Gray(4)       // Medium gray
+
+// Use in styles
+style := op.NewStyle().
+	Background(op.Color.Surface()).
+	Color(op.Color.Text()).
+	Custom("border", fmt.Sprintf("1px solid %s", op.Color.Border())).
+	String()`
+}
+
+func spacingExampleCode() string {
+	return `// Size scale from 000 to 15
+padding := op.Size(4)          // var(--size-4)
+margin := op.Size(-1)          // var(--size-00)
+gap := op.Size(-2)             // var(--size-000)
+
+// Fluid sizes (responsive)
+responsivePadding := op.SizeFluid(3)
+// Content sizes
+maxWidth := op.SizeContent(3)
+
+// In practice
+style := op.NewStyle().
+	Padding(op.Size(4)).
+	Margin(op.Size(2)).
+	Custom("gap", op.Size(3)).
+	String()`
+}
+
+func animationExampleCode() string {
+	return `// Apply animations
+fadeIn := op.Animation.FadeIn()
+bounce := op.Animation.Bounce()
+slideUp := op.Animation.SlideInUp()
+
+// With easing functions
+easeOut := op.Ease.Out(3)
+elasticEase := op.Ease.Elastic(2)
+
+// Complete example
+style := op.NewStyle().
+	Animation(op.Animation.FadeIn()).
+	TransitionProperty("all").
+	TransitionDuration("300ms").
+	TransitionTimingFunction(op.Ease.Out(3)).
+	String()`
+}
+
 // ColorsPage shows color scales
 templ ColorsPage() {
 	@Layout("Colors - Op Package Demo") {
@@ -263,22 +320,10 @@ templ ColorsPage() {
 			<h2>Color Scales</h2>
 			<p>All Open Props colors with op.Color API</p>
 		</header>
-
 		<div class="card mb-4">
 			<h3>Usage Example</h3>
-			<pre style={ codeBlockStyle() }>// Access any color with scale 0-12
-backgroundColor := op.Color.Blue(1)    // Light blue
-textColor := op.Color.Blue(11)        // Dark blue
-borderColor := op.Color.Gray(4)       // Medium gray
-
-// Use in styles
-style := op.NewStyle().
-    Background(op.Color.Surface()).
-    Color(op.Color.Text()).
-    Custom("border", fmt.Sprintf("1px solid %s", op.Color.Border())).
-    String()</pre>
+			<pre style={ codeBlockStyle() }>{ colorExampleCode() }</pre>
 		</div>
-
 		@ColorScale("Gray", op.Color.Gray)
 		@ColorScale("Blue", op.Color.Blue)
 		@ColorScale("Red", op.Color.Red)
@@ -287,31 +332,38 @@ style := op.NewStyle().
 		@ColorScale("Purple", op.Color.Purple)
 		@ColorScale("Pink", op.Color.Pink)
 		@ColorScale("Orange", op.Color.Orange)
-
 		<div class="card mt-4">
 			<h3>Theme Colors</h3>
 			<div class="grid grid-cols-2 gap-4">
 				<div>
-					<div style={ fmt.Sprintf("background: %s; padding: %s; border-radius: %s", 
-						op.Color.Background(), op.Size(3), op.Radius(2)) }>
+					<div
+						style={ fmt.Sprintf("background: %s; padding: %s; border-radius: %s",
+						op.Color.Background(), op.Size(3), op.Radius(2)) }
+					>
 						Background: { op.Color.Background() }
 					</div>
 				</div>
 				<div>
-					<div style={ fmt.Sprintf("background: %s; padding: %s; border-radius: %s", 
-						op.Color.Surface(), op.Size(3), op.Radius(2)) }>
+					<div
+						style={ fmt.Sprintf("background: %s; padding: %s; border-radius: %s",
+						op.Color.Surface(), op.Size(3), op.Radius(2)) }
+					>
 						Surface: { op.Color.Surface() }
 					</div>
 				</div>
 				<div>
-					<div style={ fmt.Sprintf("background: %s; color: white; padding: %s; border-radius: %s", 
-						op.Color.Primary(), op.Size(3), op.Radius(2)) }>
+					<div
+						style={ fmt.Sprintf("background: %s; color: white; padding: %s; border-radius: %s",
+						op.Color.Primary(), op.Size(3), op.Radius(2)) }
+					>
 						Primary: { op.Color.Primary() }
 					</div>
 				</div>
 				<div>
-					<div style={ fmt.Sprintf("border: 1px solid %s; padding: %s; border-radius: %s", 
-						op.Color.Border(), op.Size(3), op.Radius(2)) }>
+					<div
+						style={ fmt.Sprintf("border: 1px solid %s; padding: %s; border-radius: %s",
+						op.Color.Border(), op.Size(3), op.Radius(2)) }
+					>
 						Border: { op.Color.Border() }
 					</div>
 				</div>
@@ -327,41 +379,23 @@ templ SpacingPage() {
 			<h2>Spacing System</h2>
 			<p>Visual guide to op.Size() values</p>
 		</header>
-
 		<div class="card mb-4">
 			<h3>Usage Example</h3>
-			<pre style={ codeBlockStyle() }>// Size scale from 000 to 15
-padding := op.Size(4)          // var(--size-4)
-margin := op.Size(-1)          // var(--size-00) 
-gap := op.Size(-2)             // var(--size-000)
-
-// Fluid sizes (responsive)
-responsivePadding := op.SizeFluid(3)
-
-// Content sizes
-maxWidth := op.SizeContent(3)
-
-// In practice
-style := op.NewStyle().
-    Padding(op.Size(4)).
-    Margin(op.Size(2)).
-    Custom("gap", op.Size(3)).
-    String()</pre>
+			<pre style={ codeBlockStyle() }>{ spacingExampleCode() }</pre>
 		</div>
-
 		@SpacingVisualizer()
-
 		<div class="card mt-4">
 			<h3>Fluid Spacing</h3>
 			<p>Responsive spacing that scales with viewport</p>
 			<div class="flex gap-4">
 				for i := 0; i <= 10; i++ {
-					<div style={ fmt.Sprintf("background: %s; width: %s; height: %s; border-radius: %s", 
-						op.Gradient(20+i), 
-						op.SizeFluid(i), 
+					<div
+						style={ fmt.Sprintf("background: %s; width: %s; height: %s; border-radius: %s",
+						op.Gradient(20+i),
+						op.SizeFluid(i),
 						op.Size(5),
-						op.Radius(2)) }>
-					</div>
+						op.Radius(2)) }
+					></div>
 				}
 			</div>
 		</div>
@@ -375,27 +409,10 @@ templ AnimationsPage() {
 			<h2>Animations</h2>
 			<p>Open Props animations via op.Animation</p>
 		</header>
-
 		<div class="card mb-4">
 			<h3>Usage Example</h3>
-			<pre style={ codeBlockStyle() }>// Apply animations
-fadeIn := op.Animation.FadeIn()
-bounce := op.Animation.Bounce()
-slideUp := op.Animation.SlideInUp()
-
-// With easing functions
-easeOut := op.Ease.Out(3)
-elasticEase := op.Ease.Elastic(2)
-
-// Complete example
-style := op.NewStyle().
-    Animation(op.Animation.FadeIn()).
-    TransitionProperty("all").
-    TransitionDuration("300ms").
-    TransitionTimingFunction(op.Ease.Out(3)).
-    String()</pre>
+			<pre style={ codeBlockStyle() }>{ animationExampleCode() }</pre>
 		</div>
-
 		<div class="grid grid-cols-3 gap-4">
 			@AnimatedCard("Fade In", "Smooth entrance animation", op.Animation.FadeIn())
 			@AnimatedCard("Scale Up", "Grows from small to normal", op.Animation.ScaleUp())
@@ -404,14 +421,15 @@ style := op.NewStyle().
 			@AnimatedCard("Pulse", "Gentle pulsing animation", op.Animation.Pulse())
 			@AnimatedCard("Shake X", "Horizontal shake", op.Animation.ShakeX())
 		</div>
-
 		<div class="card mt-4">
 			<h3>Easing Functions</h3>
 			<div class="grid grid-cols-4 gap-2">
 				for i := 1; i <= 5; i++ {
-					<button style={ fmt.Sprintf("transition: transform 300ms %s", op.Ease.Out(i)) }
+					<button
+						style={ fmt.Sprintf("transition: transform 300ms %s", op.Ease.Out(i)) }
 						onmouseover="this.style.transform='scale(1.1)'"
-						onmouseout="this.style.transform='scale(1)'">
+						onmouseout="this.style.transform='scale(1)'"
+					>
 						Ease Out { fmt.Sprintf("%d", i) }
 					</button>
 				}
