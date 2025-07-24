@@ -73,7 +73,7 @@ category := icon.GetIconCategory(icon.IconHome) // "navigation"
 
 ```go
 // Create a search instance
-search := icon.NewSearch()
+search := icon.NewIconSearcher()
 
 // Search for icons
 results := search.Search("arrow")
@@ -157,7 +157,7 @@ templ IconButton(iconName icon.IconName, label string) {
 ```go
 templ IconSearch(query string) {
     <div class="grid grid-cols-6 gap-2">
-        { search := icon.NewSearch() }
+        { search := icon.NewIconSearcher() }
         { results := search.Search(query) }
         for _, result := range results[:12] { // Show first 12 results
             <div class="text-center p-2 hover:bg-gray-100 rounded">
